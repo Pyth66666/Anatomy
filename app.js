@@ -11,67 +11,37 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { computeBoundsTree, disposeBoundsTree, acceleratedRaycast } from 'three-mesh-bvh';
+import { t, getLang, setLang, applyStatic, onLangChange } from './i18n.js';
+
+// Hover picking tests the pointer against ~2M triangles once every system is
+// loaded. Brute force took ~160 ms per frame; a BVH brings it under 1 ms.
+THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
+THREE.BufferGeometry.prototype.disposeBoundsTree = disposeBoundsTree;
+THREE.Mesh.prototype.raycast = acceleratedRaycast;
 
 // -------------------------------------------------------------
-// SİSTEM TANIMLARI
+// SYSTEM DEFINITIONS (names/descriptions live in i18n.js as sys.<id>.name/desc)
 // -------------------------------------------------------------
 const SYSTEMS = [
-    {
-        id: 'iskelet', ad: 'İskelet Sistemi', latin: 'Systema skeletale', hex: '#e8dcc8',
-        desc: 'Vücudun taşıyıcı çatısı. 206 kemik; hareket için kaldıraç, iç organlar için zırh, ' +
-              'kan hücreleri için üretim yeri (kırmızı kemik iliği) ve kalsiyum/fosfat deposu.',
-        oncelik: 0
-    },
-    {
-        id: 'eklem', ad: 'Bağlar ve Eklem Yapıları', latin: 'Articulationes', hex: '#9fd8cb',
-        desc: 'Eklemi saran ve destekleyen yapılar: bağlar (292), eklem kapsülleri (34), ' +
-              'disk ve menisküsler (46), pubik/sakrokoksigeal simfiz. ' +
-              'NOT: oynamaz eklemler (kafatası suturları, gomfoz, sinkondroz) atlasta ' +
-              'adlandırılmış ama 3B modellenmemiştir — kafatası suturları iskelet ' +
-              'katmanında kemik sınırları olarak görünür.',
-        oncelik: 1
-    },
-    {
-        id: 'kas', ad: 'Kas Sistemi', latin: 'Systema musculare', hex: '#c8564f',
-        desc: 'İskelet kasları, iskelete tutunarak istemli hareketi üretir. Aynı zamanda duruşu korur, ' +
-              'eklemleri stabilize eder ve titreme yoluyla ısı üretir.',
-        oncelik: 2
-    },
-    {
-        id: 'dolasim', ad: 'Dolaşım Sistemi', latin: 'Systema cardiovasculare', hex: '#d94f5c',
-        desc: 'Kalp ve damarlar. Oksijen, besin, hormon ve ısıyı taşır; atık ürünleri boşaltım ' +
-              'organlarına götürür. Büyük ve küçük (pulmoner) dolaşım olmak üzere iki devre.',
-        oncelik: 3
-    },
-    {
-        id: 'sinir', ad: 'Sinir Sistemi', latin: 'Systema nervosum', hex: '#f2c14e',
-        desc: 'Merkezi (beyin, omurilik) ve çevresel sinir sistemi ile duyu organları. Bilgiyi alır, ' +
-              'işler ve yanıt üretir; tüm sistemlerin eşgüdümünü sağlar.',
-        oncelik: 4
-    },
-    {
-        id: 'ic-organlar', ad: 'İç Organlar', latin: 'Systemata visceralia', hex: '#c98a5e',
-        desc: 'Sindirim, solunum, üriner ve genital sistemler. Besinin sindirimi, gaz değişimi, ' +
-              'kanın süzülmesi ve üreme işlevleri bu organlarda yürütülür.',
-        oncelik: 5
-    },
-    {
-        id: 'lenf', ad: 'Lenf Sistemi', latin: 'Systema lymphoideum', hex: '#7fb2e5',
-        desc: 'Lenf düğümleri, dalak, timus ve tonsiller. Doku sıvısını dolaşıma geri döndürür, ' +
-              'yağ emilimine katılır ve bağışıklık yanıtının merkezini oluşturur. ' +
-              'NOT: lenf damarları ve duktus torasikus atlasta adlandırılmış ama ' +
-              '3B modellenmemiştir; bu katman organ ve düğümlerden oluşur.',
-        oncelik: 6
-    }
+    { id: 'iskelet', latin: 'Systema skeletale', hex: '#e8dcc8', oncelik: 0 },
+    { id: 'eklem', latin: 'Articulationes', hex: '#9fd8cb', oncelik: 1 },
+    { id: 'kas', latin: 'Systema musculare', hex: '#c8564f', oncelik: 2 },
+    { id: 'dolasim', latin: 'Systema cardiovasculare', hex: '#d94f5c', oncelik: 3 },
+    { id: 'sinir', latin: 'Systema nervosum', hex: '#f2c14e', oncelik: 4 },
+    { id: 'ic-organlar', latin: 'Systemata visceralia', hex: '#c98a5e', oncelik: 5 },
+    { id: 'lenf', latin: 'Systema lymphoideum', hex: '#7fb2e5', oncelik: 6 }
 ];
+const sysName = (id) => t(`sys.${id}.name`);
+const sysDesc = (id) => t(`sys.${id}.desc`);
 
 // 3B veri sürümü — GLB'ler yeniden üretildiğinde tools/stamp_data.py ile
 // güncellenir. Tarayıcı önbelleği aksi halde eski modeli servis ediyor
 // (dolaşım sistemi 676 yapıya çıktığı hâlde 22 yapılık eski dosya geliyordu).
 const DATA_VERSION = 'cce8b7a6';
 
-// Yapı adı ekleri: .l/.r taraf, parantez = alternatif/eski terim
-const SIDE_LABELS = { l: 'Sol', r: 'Sağ', ol: 'Sol (dış)', or: 'Sağ (dış)' };
+// Structure name suffixes: .l/.r side, parentheses = alternative/older term
+const SIDES = new Set(['l', 'r', 'ol', 'or']);
 
 // Örtü katmanları: altındaki yapıları tamamen kapatan zarlar. Anatomik olarak
 // doğru ama açıkken kasları/organları göstermiyor, o yüzden ayrı mesh'e alınıp
@@ -91,16 +61,21 @@ function parseStructureName(raw) {
 
     const m = name.match(/\.(ol|or|l|r)$/i);
     if (m) {
-        side = SIDE_LABELS[m[1].toLowerCase()] || null;
+        const key = m[1].toLowerCase();
+        side = SIDES.has(key) ? t(`side.${key}`) : null;
         name = name.slice(0, -m[0].length);
     }
     // Blender kopya eki
     name = name.replace(/\.\d{3}$/, '');
+    // Atlas artefacts: group markers (".g"/".j", e.g. "Pharynx.j"), stray
+    // trailing quotes ("Central canal'") and names lost to encoding ("????").
+    name = name.replace(/\.[gj]$/i, '').replace(/['"]+$/, '');
+    if (/^\?+$/.test(name)) name = t('structure.unnamed');
 
     let note = null;
     if (/^\(.*\)$/.test(name)) {
         name = name.slice(1, -1);
-        note = 'Alternatif / eski terim';
+        note = t('note.alt');
     }
     return { name: name.trim(), side, note };
 }
@@ -158,12 +133,16 @@ class AnatomyApp {
         this.dimOpacity = 0.16;
 
         this.raycaster = new THREE.Raycaster();
+        this.raycaster.firstHitOnly = true;
         this.pointer = new THREE.Vector2(-999, -999);
         this.pointerPx = { x: 0, y: 0 };
 
+        applyStatic();
         this.initLights();
         this.buildSystemList();
         this.initEvents();
+        this.initBrowser();
+        onLangChange(() => this.refreshLanguage());
 
         this.animate = this.animate.bind(this);
         requestAnimationFrame(this.animate);
@@ -193,7 +172,7 @@ class AnatomyApp {
     async loadSystem(id) {
         if (this.layers.has(id) || this.loading.has(id)) return this.layers.get(id);
         this.loading.add(id);
-        this.setLoading(true, `${SYSTEMS.find(s => s.id === id).ad} yükleniyor…`);
+        this.setLoading(true, t('loading.system', { name: sysName(id) }));
 
         const gltf = await this.loader.loadAsync(`systems/${id}.glb?v=${DATA_VERSION}`);
 
@@ -224,7 +203,7 @@ class AnatomyApp {
             if (!geom.attributes.normal) geom.computeVertexNormals();
 
             const structureId = names.length;
-            const name = originalName(child) || `Yapı ${structureId}`;
+            const name = originalName(child) || t('structure.fallback', { n: structureId });
             names.push(name);
 
             const n = geom.attributes.position.count;
@@ -246,6 +225,7 @@ class AnatomyApp {
             if (!buckets[kind].length) continue;
             const merged = mergeGeometries(buckets[kind]);
             buckets[kind].forEach(g => g.dispose());
+            merged.computeBoundsTree();
             const colors = new Float32Array(merged.attributes.position.count * 3);
             merged.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
@@ -338,6 +318,7 @@ class AnatomyApp {
                 }
                 colors[i * 3] = r; colors[i * 3 + 1] = g; colors[i * 3 + 2] = b;
             }
+            part.colorAttr.clearUpdateRanges();   // full upload
             part.colorAttr.needsUpdate = true;
 
             const mat = part.mesh.material;
@@ -353,6 +334,51 @@ class AnatomyApp {
 
     repaintAll() {
         this.layers.forEach(l => this.paintLayer(l));
+        this.syncHighlightVisibility();
+    }
+
+    /**
+     * Recolour just the given structures. Hovering used to call repaintAll(),
+     * which rewrote and re-uploaded >1M vertex colours every time the pointer
+     * crossed into a new structure. Same colour rules as paintLayer().
+     */
+    paintStructures(systemId, sids) {
+        const layer = this.layers.get(systemId);
+        if (!layer || !layer.shades) return;
+        const base = layer.baseColor;
+        const dim = layer.id === this.activeSystem ? 1 : 0.55;
+        const hoverId = (this.hovered && this.hovered.systemId === layer.id) ? this.hovered.structureId : -1;
+        const selId = (this.selected && this.selected.systemId === layer.id) ? this.selected.structureId : -1;
+
+        for (const part of layer.parts) {
+            if (!part.ranges) part.ranges = structureRanges(part.structureIds);
+            const colors = part.colorAttr.array;
+            let touched = false;
+            for (const sid of sids) {
+                const range = part.ranges.get(sid);
+                if (!range) continue;
+                const k = dim * layer.shades[sid];
+                let r = base.r * k, g = base.g * k, b = base.b * k;
+                if (sid === selId) { r = 1.0; g = 0.86; b = 0.35; }
+                else if (sid === hoverId) {
+                    r = Math.min(1, r * 1.5 + 0.18);
+                    g = Math.min(1, g * 1.5 + 0.18);
+                    b = Math.min(1, b * 1.5 + 0.18);
+                }
+                for (let i = range[0]; i < range[1]; i++) {
+                    colors[i * 3] = r; colors[i * 3 + 1] = g; colors[i * 3 + 2] = b;
+                }
+                part.colorAttr.addUpdateRange(range[0] * 3, (range[1] - range[0]) * 3);
+                touched = true;
+            }
+            if (touched) part.colorAttr.needsUpdate = true;
+        }
+    }
+
+    /** Move the hover highlight from `prev` to this.hovered. */
+    repaintHover(prev) {
+        if (prev) this.paintStructures(prev.systemId, [prev.structureId]);
+        if (this.hovered) this.paintStructures(this.hovered.systemId, [this.hovered.structureId]);
     }
 
     // ---------------------------------------------------------
@@ -364,16 +390,24 @@ class AnatomyApp {
      *   kemiğe dokunduğunda sistem değişiyor ama yapının adı panelden siliniyordu.
      */
     async selectSystem(id, secimiKoru = false) {
+        const changed = id !== this.activeSystem;
         this.activeSystem = id;
         if (!secimiKoru) {
             this.selected = null;
             document.getElementById('structure-block').hidden = true;
+            this.updateHighlight();
+        }
+        if (changed) {
+            this.browseFilter = '';
+            document.getElementById('structure-search').value = '';
         }
         this.refreshSystemList();
         this.showSystemInfo(id);
+        this.renderBrowser();
         await this.loadSystem(id);
         this.showSystemInfo(id);   // yapı sayısı ancak katman yüklenince bilinir
         this.repaintAll();
+        this.renderBrowser();
     }
 
     toggleLayer(id, on) {
@@ -383,10 +417,18 @@ class AnatomyApp {
         layer.visible = on;
         this.paintLayer(layer);
         this.refreshSystemList();
+        this.syncHighlightVisibility();
     }
 
     checkHover() {
         if (!this.showHoverName) return;
+
+        // Only re-pick when something that affects the hit has changed.
+        const c = this.camera.position;
+        const key = `${this.pointer.x},${this.pointer.y},${this.bodyGroup.rotation.y},${c.x},${c.y},${c.z},${this.layers.size}`;
+        if (key === this.lastHoverKey) return;
+        this.lastHoverKey = key;
+        if (this.pointer.x < -1) return;   // pointer is off the canvas
         const meshes = [];
         this.layers.forEach(l => l.parts.forEach(p => { if (p.mesh.visible) meshes.push(p.mesh); }));
         if (!meshes.length) return;
@@ -395,7 +437,7 @@ class AnatomyApp {
         const hits = this.raycaster.intersectObjects(meshes, false);
 
         if (!hits.length) {
-            if (this.hovered) { this.hovered = null; this.repaintAll(); }
+            if (this.hovered) { const prev = this.hovered; this.hovered = null; this.repaintHover(prev); }
             this.hideTooltip();
             return;
         }
@@ -407,8 +449,9 @@ class AnatomyApp {
         const sid = part.structureIds[idx];
 
         if (!this.hovered || this.hovered.systemId !== layer.id || this.hovered.structureId !== sid) {
+            const prev = this.hovered;
             this.hovered = { systemId: layer.id, structureId: sid };
-            this.repaintAll();
+            this.repaintHover(prev);
         }
         this.showTooltip(layer.names[sid]);
     }
@@ -428,6 +471,179 @@ class AnatomyApp {
     selectStructure() {
         if (!this.hovered) return;
         this.selected = { ...this.hovered };
+        this.showSelectedStructure();
+        this.updateHighlight();
+
+        if (this.selected.systemId !== this.activeSystem) this.selectSystem(this.selected.systemId, true);
+        else { this.repaintAll(); this.renderBrowser(); }
+    }
+
+    /**
+     * Select a structure from the browser list or prev/next and fly to it.
+     * About 7% of structures sit inside others (ossicles, heart valves,
+     * brainstem nuclei, deep muscles) and can't be clicked on the model, so
+     * this is the path that reaches every one of them.
+     */
+    async focusStructure(systemId, sid) {
+        this.selected = { systemId, structureId: sid };
+        if (systemId !== this.activeSystem) await this.selectSystem(systemId, true);
+        else this.repaintAll();
+        this.showSelectedStructure();
+        this.updateHighlight();
+        this.renderBrowser();
+        this.flyToStructure();
+    }
+
+    stepStructure(dir) {
+        const entries = this.browseEntries();
+        if (!entries.length) return;
+        const selSid = (this.selected && this.selected.systemId === this.activeSystem) ? this.selected.structureId : -1;
+        let i = entries.findIndex(e => e.sid === selSid);
+        i = i < 0 ? (dir > 0 ? 0 : entries.length - 1) : (i + dir + entries.length) % entries.length;
+        this.focusStructure(this.activeSystem, entries[i].sid);
+    }
+
+    // ---------------------------------------------------------
+    // STRUCTURE BROWSER
+    // ---------------------------------------------------------
+    initBrowser() {
+        this.browseFilter = '';
+        const search = document.getElementById('structure-search');
+        search.addEventListener('input', () => {
+            this.browseFilter = search.value.trim().toLowerCase();
+            this.renderBrowser();
+        });
+        search.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { e.preventDefault(); this.stepStructure(1); }
+        });
+        document.getElementById('structure-list').addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-sid]');
+            if (btn) this.focusStructure(this.activeSystem, Number(btn.dataset.sid));
+        });
+        document.getElementById('prev-structure').addEventListener('click', () => this.stepStructure(-1));
+        document.getElementById('next-structure').addEventListener('click', () => this.stepStructure(1));
+
+        // Seen through anything in front of it, so buried structures still show.
+        this.highlightMaterial = new THREE.MeshBasicMaterial({
+            color: 0xffd766, transparent: true, opacity: 0.38,
+            depthTest: false, depthWrite: false, side: THREE.DoubleSide
+        });
+    }
+
+    /** Active system's structures, sorted by display name, filtered by search. */
+    browseEntries() {
+        const layer = this.layers.get(this.activeSystem);
+        if (!layer) return [];
+        if (!layer.sorted || layer.sortedLang !== getLang()) {
+            layer.sorted = layer.names.map((raw, sid) => {
+                const p = parseStructureName(raw);
+                return { sid, label: p.side ? `${p.name} — ${p.side}` : p.name };
+            }).sort((x, y) => x.label.localeCompare(y.label));
+            layer.sortedLang = getLang();
+        }
+        const f = this.browseFilter;
+        return f ? layer.sorted.filter(e => e.label.toLowerCase().includes(f)) : layer.sorted;
+    }
+
+    renderBrowser() {
+        const list = document.getElementById('structure-list');
+        const layer = this.layers.get(this.activeSystem);
+        const entries = this.browseEntries();
+        document.getElementById('browse-count').textContent = !layer ? ''
+            : (this.browseFilter ? `${entries.length} / ${layer.names.length}` : `${layer.names.length}`);
+
+        const selSid = (this.selected && this.selected.systemId === this.activeSystem) ? this.selected.structureId : -1;
+        list.innerHTML = !layer ? ''
+            : entries.length
+                ? entries.map(e => `<li><button data-sid="${e.sid}"${e.sid === selSid ? ' class="active"' : ''}>${escapeHtml(e.label)}</button></li>`).join('')
+                : `<li class="empty">${t('browse.none')}</li>`;
+
+        const active = list.querySelector('button.active');
+        if (active && (active.offsetTop < list.scrollTop
+            || active.offsetTop + active.offsetHeight > list.scrollTop + list.clientHeight)) {
+            list.scrollTop = active.offsetTop - list.clientHeight / 2;
+        }
+    }
+
+    /** Rebuild the see-through overlay for the selected structure. */
+    updateHighlight() {
+        if (this.highlight) {
+            this.bodyPivot.remove(this.highlight);
+            this.highlight.children.forEach(m => m.geometry.dispose());
+            this.highlight = null;
+            this.highlightCenter = null;
+        }
+        if (!this.selected) return;
+        const layer = this.layers.get(this.selected.systemId);
+        if (!layer) return;
+        const sid = this.selected.structureId;
+
+        const group = new THREE.Group();
+        for (const part of layer.parts) {
+            if (!part.ranges) part.ranges = structureRanges(part.structureIds);
+            const range = part.ranges.get(sid);
+            if (!range) continue;
+            const [r0, r1] = range;
+            const src = part.mesh.geometry;
+            const idx = src.index.array;
+            const tris = [];
+            for (let i = 0; i < idx.length; i += 3) {
+                if (idx[i] >= r0 && idx[i] < r1) tris.push(idx[i] - r0, idx[i + 1] - r0, idx[i + 2] - r0);
+            }
+            const geom = new THREE.BufferGeometry();
+            geom.setAttribute('position', new THREE.BufferAttribute(src.attributes.position.array.slice(r0 * 3, r1 * 3), 3));
+            geom.setIndex(tris);
+            const mesh = new THREE.Mesh(geom, this.highlightMaterial);
+            mesh.renderOrder = 999;
+            mesh.userData.part = part;
+            group.add(mesh);
+        }
+        this.highlight = group;
+        this.bodyPivot.add(group);
+        const box = new THREE.Box3();
+        group.children.forEach(m => { m.geometry.computeBoundingBox(); box.union(m.geometry.boundingBox); });
+        this.highlightCenter = box.isEmpty() ? null : box.getCenter(new THREE.Vector3());
+        this.syncHighlightVisibility();
+    }
+
+    /** Keep the on-screen ring over the selected structure (tiny ones are otherwise invisible). */
+    updateMarker() {
+        const marker = document.getElementById('focus-marker');
+        const shown = this.highlight && this.highlightCenter && this.highlight.children.some(m => m.visible);
+        if (!shown) { marker.hidden = true; return; }
+        const p = this.bodyPivot.localToWorld(this.highlightCenter.clone()).project(this.camera);
+        if (p.z > 1 || Math.abs(p.x) > 1.1 || Math.abs(p.y) > 1.1) { marker.hidden = true; return; }
+        marker.hidden = false;
+        marker.style.transform = `translate(${(p.x + 1) / 2 * this.width}px, ${(1 - p.y) / 2 * this.height}px)`;
+    }
+
+    syncHighlightVisibility() {
+        if (!this.highlight) return;
+        this.highlight.children.forEach(m => { m.visible = m.userData.part.mesh.visible; });
+    }
+
+    flyToStructure() {
+        if (!this.highlight || !this.highlight.children.length) return;
+        const box = new THREE.Box3();
+        this.highlight.children.forEach(m => { m.geometry.computeBoundingBox(); box.union(m.geometry.boundingBox); });
+        // bodyGroup's spin is reset to 0 by flyTo, so bodyPivot space is enough.
+        box.applyMatrix4(this.bodyPivot.matrix);
+        const center = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3()).length();
+        // Look from the front (+z) unless the structure sits in the back half.
+        const dir = new THREE.Vector3(0, 0.15, center.z >= -0.02 ? 1 : -1).normalize();
+        // Floor keeps tiny structures (ossicles ~3 mm) in anatomical context.
+        const dist = THREE.MathUtils.clamp(size * 1.8, 0.85, 6);
+
+        this.autoSpin = false;
+        document.getElementById('spin-btn').setAttribute('aria-pressed', 'false');
+        this.updateSpinLabel();
+        this.lastView = null;   // resize refit is for whole-body presets only
+        this.flyTo(center.clone().addScaledVector(dir, dist), center);
+    }
+
+    showSelectedStructure() {
+        if (!this.selected) return;
         const layer = this.layers.get(this.selected.systemId);
         const parsed = parseStructureName(layer.names[this.selected.structureId]);
 
@@ -435,13 +651,27 @@ class AnatomyApp {
         document.getElementById('structure-name').textContent = parsed.name;
         document.getElementById('structure-side').textContent =
             [parsed.side, parsed.note].filter(Boolean).join(' · ');
+    }
 
-        if (this.selected.systemId !== this.activeSystem) this.selectSystem(this.selected.systemId, true);
-        else this.repaintAll();
+    /** Re-render every piece of dynamic text after a language switch. */
+    refreshLanguage() {
+        this.buildSystemList();
+        this.refreshSystemList();
+        if (this.activeSystem) this.showSystemInfo(this.activeSystem);
+        this.showSelectedStructure();
+        this.renderBrowser();
+        this.updateSpinLabel();
+        if (this.loading.size) {
+            this.setLoading(true, t('loading.system', { name: sysName([...this.loading][0]) }));
+        }
+    }
+
+    updateSpinLabel() {
+        document.getElementById('spin-btn').textContent = t(this.autoSpin ? 'btn.spinOn' : 'btn.spinOff');
     }
 
     // ---------------------------------------------------------
-    // ARAYÜZ
+    // UI
     // ---------------------------------------------------------
     buildSystemList() {
         const box = document.getElementById('system-list');
@@ -453,10 +683,10 @@ class AnatomyApp {
             row.innerHTML = `
                 <button class="sys-main" data-system="${s.id}">
                     <span class="sys-dot" style="--c:${s.hex}"></span>
-                    <span class="sys-name">${s.ad}</span>
+                    <span class="sys-name">${sysName(s.id)}</span>
                     <span class="sys-count"></span>
                 </button>
-                <button class="sys-eye" data-eye="${s.id}" title="Katmanı aç/kapa" aria-label="Katmanı aç/kapa">
+                <button class="sys-eye" data-eye="${s.id}" title="${t('layer.toggle')}" aria-label="${t('layer.toggle')}">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>
                     </svg>
@@ -464,6 +694,9 @@ class AnatomyApp {
             box.appendChild(row);
         });
 
+        // Rebuilt on every language switch; bind the click handler only once.
+        if (box.dataset.bound) return;
+        box.dataset.bound = '1';
         box.addEventListener('click', (e) => {
             const main = e.target.closest('.sys-main');
             if (main) { this.selectSystem(main.dataset.system); return; }
@@ -492,9 +725,9 @@ class AnatomyApp {
 
     showSystemInfo(id) {
         const s = SYSTEMS.find(x => x.id === id);
-        document.getElementById('info-title').textContent = s.ad;
+        document.getElementById('info-title').textContent = sysName(id);
         document.getElementById('info-latin').textContent = s.latin;
-        document.getElementById('info-desc').textContent = s.desc;
+        document.getElementById('info-desc').textContent = sysDesc(id);
         const dot = document.getElementById('info-dot');
         dot.style.background = s.hex;
         dot.style.boxShadow = `0 0 12px ${s.hex}`;
@@ -502,11 +735,11 @@ class AnatomyApp {
         const meta = (this.systemsMeta || {})[id];
         const layer = this.layers.get(id);
         const specs = [];
-        if (layer) specs.push(['Ayrı yapı sayısı', layer.names.length]);
+        if (layer) specs.push([t('spec.count'), layer.names.length]);
         if (meta) {
-            specs.push(['Üçgen (atlas)', meta.ucgen_ham.toLocaleString('tr-TR')]);
-            specs.push(['Web için indirgeme', `%${Math.round(meta.decimate_orani * 100)}`]);
-            specs.push(['Dosya boyutu', `${meta.boyut_mb} MB`]);
+            specs.push([t('spec.tris'), meta.ucgen_ham.toLocaleString(getLang() === 'ms' ? 'ms-MY' : 'en-US')]);
+            specs.push([t('spec.decimate'), `${Math.round(meta.decimate_orani * 100)}%`]);
+            specs.push([t('spec.size'), `${meta.boyut_mb} MB`]);
         }
         document.getElementById('info-specs').innerHTML =
             specs.map(([k, v]) => `<li><strong>${k}:</strong> ${v}</li>`).join('');
@@ -628,6 +861,11 @@ class AnatomyApp {
             this.pointer.x = (e.clientX / this.width) * 2 - 1;
             this.pointer.y = -(e.clientY / this.height) * 2 + 1;
         });
+        canvas.addEventListener('pointerleave', () => {
+            this.pointer.set(-999, -999);
+            if (this.hovered) { const prev = this.hovered; this.hovered = null; this.repaintHover(prev); }
+            this.hideTooltip();
+        });
         canvas.addEventListener('pointerdown', () => { this.dragStart = performance.now(); });
         canvas.addEventListener('pointerup', () => {
             // Mobilde çekmeceyi kapatmak için yapılan dokunuş seçim sayılmaz
@@ -644,10 +882,15 @@ class AnatomyApp {
         document.getElementById('reset-view-btn').addEventListener('click', () => this.setCamera('front'));
 
         const spinBtn = document.getElementById('spin-btn');
+        this.updateSpinLabel();
         spinBtn.addEventListener('click', () => {
             this.autoSpin = !this.autoSpin;
             spinBtn.setAttribute('aria-pressed', String(this.autoSpin));
-            spinBtn.textContent = `Otomatik Dönüş: ${this.autoSpin ? 'Açık' : 'Kapalı'}`;
+            this.updateSpinLabel();
+        });
+
+        document.getElementById('lang-btn').addEventListener('click', () => {
+            setLang(getLang() === 'en' ? 'ms' : 'en');
         });
 
         document.getElementById('opacity-slider').addEventListener('input', (e) => {
@@ -683,8 +926,29 @@ class AnatomyApp {
         }
         this.checkHover();
         this.controls.update();
+        this.updateMarker();
         this.renderer.render(this.scene, this.camera);
     }
+}
+
+function escapeHtml(s) {
+    return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+/**
+ * structureId -> [firstVertex, endVertex). mergeGeometries() appends each
+ * structure's vertices as one contiguous block, so a single scan finds them.
+ */
+function structureRanges(ids) {
+    const ranges = new Map();
+    let start = 0;
+    for (let i = 1; i <= ids.length; i++) {
+        if (i === ids.length || ids[i] !== ids[start]) {
+            ranges.set(ids[start], [start, i]);
+            start = i;
+        }
+    }
+    return ranges;
 }
 
 /** Basit geometri birleştirme (yalnız position/normal/structureId, indeksli). */

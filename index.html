@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anatomi Simülatörü | Tam Boy İnsan Anatomisi</title>
+    <title>Anatomy 360 | Full-Body Human Anatomy</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='7' r='5' fill='%23e8dcc8'/%3E%3Cpath d='M9 30V18a7 7 0 0 1 14 0v12' fill='none' stroke='%23e8dcc8' stroke-width='4'/%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=81261795">
+    <link rel="stylesheet" href="styles.css?v=browse3">
     <script type="importmap">
     {
         "imports": {
             "three": "./vendor/three/three.module.min.js",
-            "three/addons/": "./vendor/three/addons/"
+            "three/addons/": "./vendor/three/addons/",
+            "three-mesh-bvh": "./vendor/three-mesh-bvh/index.module.js"
         }
     }
     </script>
@@ -20,112 +22,122 @@
 
     <div id="loading-overlay" class="loading-overlay">
         <div class="spinner"></div>
-        <p id="loading-text">Anatomik model yükleniyor…</p>
+        <p id="loading-text" data-i18n="loading.model">Loading anatomical model…</p>
     </div>
 
     <header class="app-header">
         <div class="brand">
-            <img class="yzo-mark" src="assets/yzo-mark.png" alt="Yapay Zekâ Okulum">
             <div class="brand-text">
-                <span class="wordmark">Yapay Zekâ Okulum</span>
-                <h1>ANATOMİ SİMÜLATÖRÜ</h1>
-                <span class="badge">Tam Boy İnsan Anatomisi · Z-Anatomy Atlası</span>
+                <span class="wordmark" data-i18n="brand.wordmark">Free &amp; Open Source</span>
+                <h1 data-i18n="brand.title">ANATOMY 360</h1>
+                <span class="badge" data-i18n="brand.badge">Full-Body Human Anatomy · Z-Anatomy Atlas</span>
             </div>
         </div>
         <div class="header-actions">
-            <button class="ghost-btn" id="reset-view-btn">Görünümü Sıfırla</button>
-            <button class="ghost-btn" id="spin-btn" aria-pressed="true">Otomatik Dönüş: Açık</button>
+            <button class="ghost-btn" id="lang-btn" data-i18n="btn.lang" data-i18n-title="btn.langTitle">BM</button>
+            <button class="ghost-btn" id="reset-view-btn" data-i18n="btn.reset">Reset View</button>
+            <button class="ghost-btn" id="spin-btn" aria-pressed="true">Auto-Rotate: On</button>
         </div>
     </header>
 
     <aside class="left-panel glass">
         <div class="panel-head">
-            <h3>ANATOMİK SİSTEMLER</h3>
-            <span class="hint">Tıkla: yalnız o sistemi göster · Göz: katman aç/kapa</span>
+            <h3 data-i18n="panel.systems">ANATOMICAL SYSTEMS</h3>
+            <span class="hint" data-i18n="panel.systemsHint">Click: show only that system · Eye: toggle layer</span>
         </div>
         <div id="system-list" class="system-list"></div>
 
         <div class="panel-head margin-top">
-            <h3>GÖRÜNÜM</h3>
+            <h3 data-i18n="panel.view">VIEW</h3>
         </div>
         <div class="control-row">
-            <label for="opacity-slider">Diğer katmanların saydamlığı</label>
+            <label for="opacity-slider" data-i18n="ctl.opacity">Opacity of other layers</label>
             <input type="range" id="opacity-slider" min="0" max="100" value="16">
         </div>
         <div class="control-row toggle">
-            <label for="xray-toggle">Röntgen modu</label>
+            <label for="xray-toggle" data-i18n="ctl.xray">X-ray mode</label>
             <input type="checkbox" id="xray-toggle" class="switch">
         </div>
         <div class="control-row toggle">
-            <label for="hover-toggle">Yapı adını göster (imleç)</label>
+            <label for="hover-toggle" data-i18n="ctl.hover">Show structure name (hover)</label>
             <input type="checkbox" id="hover-toggle" class="switch" checked>
         </div>
 
         <div class="control-row toggle">
-            <label for="cover-toggle">Örtü zarları <em>(fasya, periton…)</em></label>
+            <label for="cover-toggle" data-i18n-html="ctl.cover">Covering membranes <em>(fascia, peritoneum…)</em></label>
             <input type="checkbox" id="cover-toggle" class="switch">
         </div>
 
         <div class="control-row toggle">
-            <label for="genital-toggle">Üreme sistemi</label>
+            <label for="genital-toggle" data-i18n="ctl.genital">Reproductive system</label>
             <input type="checkbox" id="genital-toggle" class="switch" checked>
         </div>
 
         <div class="panel-head margin-top">
-            <h3>KAMERA</h3>
+            <h3 data-i18n="panel.camera">CAMERA</h3>
         </div>
         <div class="cam-grid">
-            <button class="cam-btn" data-cam="front">Ön</button>
-            <button class="cam-btn" data-cam="back">Arka</button>
-            <button class="cam-btn" data-cam="left">Sol</button>
-            <button class="cam-btn" data-cam="right">Sağ</button>
-            <button class="cam-btn" data-cam="head">Baş</button>
-            <button class="cam-btn" data-cam="torso">Gövde</button>
+            <button class="cam-btn" data-cam="front" data-i18n="cam.front">Front</button>
+            <button class="cam-btn" data-cam="back" data-i18n="cam.back">Back</button>
+            <button class="cam-btn" data-cam="left" data-i18n="cam.left">Left</button>
+            <button class="cam-btn" data-cam="right" data-i18n="cam.right">Right</button>
+            <button class="cam-btn" data-cam="head" data-i18n="cam.head">Head</button>
+            <button class="cam-btn" data-cam="torso" data-i18n="cam.torso">Torso</button>
         </div>
     </aside>
 
     <aside class="right-panel glass" id="info-panel">
         <div class="panel-head">
             <div class="sys-dot" id="info-dot"></div>
-            <h2 id="info-title">Sistem seçilmedi</h2>
+            <h2 id="info-title" data-i18n="info.none">No system selected</h2>
         </div>
         <div class="latin" id="info-latin">—</div>
         <div class="panel-body">
             <section class="info-block">
-                <h4>Tanım</h4>
-                <p id="info-desc">Soldaki listeden bir anatomik sistem seçin.</p>
+                <h4 data-i18n="info.definition">Definition</h4>
+                <p id="info-desc" data-i18n="info.pick">Choose an anatomical system from the list on the left.</p>
             </section>
             <section class="info-block" id="structure-block" hidden>
-                <h4>Seçili Yapı</h4>
+                <h4 data-i18n="info.selected">Selected Structure</h4>
                 <p class="structure-name" id="structure-name">—</p>
                 <p class="structure-side" id="structure-side"></p>
             </section>
+            <section class="info-block" id="browse-block">
+                <h4><span data-i18n="browse.title">Structures in this system</span> <span class="browse-count" id="browse-count"></span></h4>
+                <div class="browse-nav">
+                    <button class="cam-btn" id="prev-structure" data-i18n-title="browse.prev">◀</button>
+                    <input type="search" id="structure-search" class="search-input" autocomplete="off" data-i18n-placeholder="browse.search" placeholder="Search structures…">
+                    <button class="cam-btn" id="next-structure" data-i18n-title="browse.next">▶</button>
+                </div>
+                <ul class="structure-list" id="structure-list"></ul>
+            </section>
             <section class="info-block">
-                <h4>Katman Bilgisi</h4>
+                <h4 data-i18n="info.layer">Layer Info</h4>
                 <ul class="spec-list" id="info-specs"></ul>
             </section>
         </div>
     </aside>
 
     <div id="tooltip" class="tooltip"></div>
+    <div id="focus-marker" class="focus-marker" hidden></div>
 
     <footer class="app-footer">
-        <span><strong>Sol tık + sürükle:</strong> döndür</span>
-        <span><strong>Sağ tık + sürükle:</strong> kaydır</span>
-        <span><strong>Tekerlek:</strong> yakınlaş</span>
-        <span class="attrib">Model: BodyParts3D — DBCLS — CC-BY-SA 2.1 JP · Z-Anatomy — CC-BY-SA 4.0</span>
+        <span data-i18n-html="footer.rotate"><strong>Left-click + drag:</strong> rotate</span>
+        <span data-i18n-html="footer.pan"><strong>Right-click + drag:</strong> pan</span>
+        <span data-i18n-html="footer.zoom"><strong>Scroll wheel:</strong> zoom</span>
+        <span class="attrib">Model: BodyParts3D — DBCLS — CC-BY-SA 2.1 JP · Z-Anatomy — CC-BY-SA 4.0 · <span data-i18n-html="footer.basedOn"></span></span>
     </footer>
 
-    <!-- Mobil: panelleri alt çekmece olarak aç/kapa -->
+    <!-- Mobile: panels open as bottom drawers -->
     <nav class="mobile-bar" id="mobile-bar">
-        <button class="mob-btn" data-panel="left-panel">◧ Sistemler &amp; Görünüm</button>
-        <button class="mob-btn" data-panel="info-panel">◨ Bilgi Kartı</button>
+        <button class="mob-btn" data-panel="left-panel" data-i18n-html="mob.systems">◧ Systems &amp; View</button>
+        <button class="mob-btn" data-panel="info-panel" data-i18n-html="mob.info">◨ Info Card</button>
     </nav>
 
-    <script type="module" src="app.js?v=df22cc7f"></script>
+    <script type="module" src="app.js?v=browse3"></script>
     <script src="mobile.js?v=0cde8498"></script>
     <script>
-        // Otomatik tanıtım turu: ?demo=1 (yatay) · ?demo=dikey (9:16, Reels)
+        // Automated demo tour: ?demo=1 (landscape) · ?demo=dikey (9:16, Reels)
         const demo = new URLSearchParams(location.search).get('demo');
         if (demo) {
             const s = document.createElement('script');
