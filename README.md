@@ -1,5 +1,20 @@
 # Anatomi Simülatörü
 
+## Anatomy 360: veterinary atlas
+
+The human atlas remains at `index.html`. Select **Veterinary** in its header to open
+the separate `veterinary/` section, with dog (138 model pieces), horse (208), and
+cow (54) viewers. It supports structure search, selection, focus, isolation,
+hiding, showing all, and resetting the camera. Run the existing `server.py` and
+visit `http://127.0.0.1:8092/veterinary/`.
+
+Veterinary assets load only on their own viewer pages. They use a separate
+Three.js distribution and do not register a service worker. Cow coverage is
+skeletal; the collections do not represent a complete veterinary curriculum.
+Veterinary models have **CC BY-NC-SA 4.0** terms as attributed upstream, separate
+from the human data. See [veterinary credits](veterinary/ATTRIBUTION.md).
+
+
 [![Canlı Demo](https://img.shields.io/badge/Canl%C4%B1_Demo-a%C3%A7-7fb2e5?style=for-the-badge&logo=googlechrome&logoColor=white)](https://drmurataltun.github.io/anatomi-simulatoru/)
 [![Otomatik Tur](https://img.shields.io/badge/Otomatik_Tur-%3Fdemo%3D1-c98a5e?style=for-the-badge)](https://drmurataltun.github.io/anatomi-simulatoru/?demo=1)
 [![Kod: MIT](https://img.shields.io/badge/Kod-MIT-3da639?style=for-the-badge)](LICENSE)

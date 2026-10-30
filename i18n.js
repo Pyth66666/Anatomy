@@ -9,6 +9,7 @@
  */
 export const STRINGS = {
     en: {
+        'nav.veterinary': 'Veterinary',
         'page.title': 'Anatomy 360 | Full-Body Human Anatomy',
         'loading.model': 'Loading anatomical model…',
         'loading.system': 'Loading {name}…',
@@ -57,6 +58,19 @@ export const STRINGS = {
         'browse.prev': 'Previous structure',
         'browse.next': 'Next structure',
         'browse.none': 'No matching structure',
+        'body.switch': 'Reference body',
+        'body.male': 'Male body (BodyParts3D / Z-Anatomy)',
+        'body.female': 'Female body (Human Reference Atlas)',
+        'ctl.pregnancy': 'Pregnancy (placenta, umbilical cord)',
+        'ctl.borrowed': 'Placeholder bones <em>(male-derived)</em>',
+        'note.borrowed': 'Placeholder from the male skeleton: the female source has no model of this bone',
+        'spec.borrowed': 'Male-derived placeholder bones',
+        'footer.female': 'Female: Human Reference Atlas, HuBMAP (Browne &amp; Schlehlein) — CC BY 4.0',
+        'sys.iskelet.femaleNote': 'FEMALE BODY: the source models the spine, sternum, pelvis and leg bones. The skull, ribs, shoulders, arms, hands and feet are placeholders fitted from the male skeleton (shown blue-grey); they carry no female skeletal differences.',
+        'sys.kas.femaleNote': 'FEMALE BODY: the open female source only models the eye muscles and the rectus femoris. No open dataset of female trunk or arm muscles exists, and male muscles are not substituted.',
+        'sys.eklem.femaleNote': 'FEMALE BODY: intervertebral discs and knee structures only.',
+        'sys.deri.name': 'Skin & Breast',
+        'sys.deri.desc': 'The integumentary system: the skin covering the whole body, the breast (mammary lobes, lactiferous ducts and sinuses, nipple, areola, suspensory ligaments, adipose tissue) and abdominal subcutaneous fat. Fat layers are shown with "Covering membranes".',
         'footer.rotate': '<strong>Left-click + drag:</strong> rotate',
         'footer.pan': '<strong>Right-click + drag:</strong> pan',
         'footer.zoom': '<strong>Scroll wheel:</strong> zoom',
@@ -92,6 +106,7 @@ export const STRINGS = {
     },
 
     ms: {
+        'nav.veterinary': 'Veterinar',
         'page.title': 'Anatomi 360 | Anatomi Manusia Seluruh Badan',
         'loading.model': 'Memuatkan model anatomi…',
         'loading.system': 'Memuatkan {name}…',
@@ -140,6 +155,19 @@ export const STRINGS = {
         'browse.prev': 'Struktur sebelumnya',
         'browse.next': 'Struktur seterusnya',
         'browse.none': 'Tiada struktur sepadan',
+        'body.switch': 'Badan rujukan',
+        'body.male': 'Badan lelaki (BodyParts3D / Z-Anatomy)',
+        'body.female': 'Badan perempuan (Human Reference Atlas)',
+        'ctl.pregnancy': 'Kehamilan (plasenta, tali pusat)',
+        'ctl.borrowed': 'Tulang pengganti <em>(daripada lelaki)</em>',
+        'note.borrowed': 'Pengganti daripada rangka lelaki: sumber perempuan tiada model tulang ini',
+        'spec.borrowed': 'Tulang pengganti daripada lelaki',
+        'footer.female': 'Perempuan: Human Reference Atlas, HuBMAP (Browne &amp; Schlehlein) — CC BY 4.0',
+        'sys.iskelet.femaleNote': 'BADAN PEREMPUAN: sumber memodelkan tulang belakang, sternum, pelvis dan tulang kaki. Tengkorak, rusuk, bahu, lengan, tangan dan kaki (tapak) ialah pengganti yang dipadankan daripada rangka lelaki (berwarna biru kelabu); ia tidak menunjukkan perbezaan rangka perempuan.',
+        'sys.kas.femaleNote': 'BADAN PEREMPUAN: sumber terbuka perempuan hanya memodelkan otot mata dan rektus femoris. Tiada set data terbuka bagi otot batang badan atau lengan perempuan, dan otot lelaki tidak digunakan sebagai ganti.',
+        'sys.eklem.femaleNote': 'BADAN PEREMPUAN: cakera intervertebra dan struktur lutut sahaja.',
+        'sys.deri.name': 'Kulit & Payudara',
+        'sys.deri.desc': 'Sistem integumen: kulit yang menyelaputi seluruh badan, payudara (lobus mamari, duktus dan sinus laktiferus, puting, areola, ligamen penggantung, tisu adipos) dan lemak subkutaneus abdomen. Lapisan lemak dipaparkan melalui "Membran penutup".',
         'footer.rotate': '<strong>Klik kiri + seret:</strong> putar',
         'footer.pan': '<strong>Klik kanan + seret:</strong> anjak',
         'footer.zoom': '<strong>Roda tetikus:</strong> zum',
@@ -219,3 +247,8 @@ export function setLang(next) {
 }
 
 export const onLangChange = (fn) => listeners.push(fn);
+
+/** Merge page-specific strings (e.g. the veterinary pages) into the shared table. */
+export function addStrings(extra) {
+    for (const l of Object.keys(extra)) Object.assign(STRINGS[l] ??= {}, extra[l]);
+}

@@ -30,6 +30,35 @@ open-source projects below. Attribution is **required** under CC BY-SA.
 `tools/export_systems.py` ile üretilmiştir (koleksiyon seçimi + decimate + glTF).
 Geometri **indirgenmiştir**, anatomik içerik değiştirilmemiştir.
 
+## 2b. Human Reference Atlas — female body
+
+> **Kristen Browne and Heidi Schlehlein, Human Reference Atlas / HuBMAP,
+> *3D Reference Organ Set for Female*, v1.10 and v1.5**
+> licensed under **CC BY 4.0** — https://creativecommons.org/licenses/by/4.0/
+
+- Reference library: https://humanatlas.io/3d-reference-library
+- v1.10: https://cdn.humanatlas.io/digital-objects/ref-organ/united-female/v1.10/assets/3d-vh-f-united.glb
+- v1.5 (ischium and pubis only, dropped from v1.10; same coordinate frame):
+  https://cdn.humanatlas.io/digital-objects/ref-organ/united-female/v1.5/assets/3d-vh-f-united.glb
+- Built on the Visible Human Dataset, U.S. National Library of Medicine.
+
+`systems-female/*.glb` are produced by `tools/female/build.mjs`: transforms baked,
+coincident vertices welded, geometry simplified (meshoptimizer, ≤1% relative error
+per structure, 7.7M → 2.1M triangles), names cleaned and a few source spelling
+errors corrected for display (e.g. "Jejenum" → "Jejunum").
+
+The female source has no skull, ribs, shoulder girdle, arm, hand or foot bones.
+These are **borrowed from the male atlas above** (BodyParts3D / Z-Anatomy), placed
+by a least-squares uniform scale + translation onto landmarks both bodies share
+(head: C1–C2, eyes, upper teeth and the cranial vault inside the female head skin;
+thorax: T1–T12, manubrium, sternum; feet: tibia and fibula), with each arm turned
+about the shoulder to follow the female arm. Fit parameters: `data/female-fit.json`.
+They are tagged `[male-derived]`, drawn blue-grey, and can be switched off. They
+carry none of the skeletal differences between the sexes outside the pelvis.
+
+Because they include those CC BY-SA bones, the `systems-female/*.glb` files as a
+whole are distributed under **CC BY-SA 4.0**, with attribution to both sources.
+
 ---
 
 ## 3. three.js
@@ -37,6 +66,9 @@ Geometri **indirgenmiştir**, anatomik içerik değiştirilmemiştir.
 MIT License — https://github.com/mrdoob/three.js
 `vendor/three/` altında sürüm **r185** yerel olarak tutulur (CDN bağımlılığı yok).
 Lisans metni: `vendor/three/LICENSE`.
+
+three-mesh-bvh 0.9.17 (Garrett Johnson, MIT) — `vendor/three-mesh-bvh/`, used for
+fast hover picking. License text: `vendor/three-mesh-bvh/LICENSE`.
 
 ---
 

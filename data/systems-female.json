@@ -1,0 +1,74 @@
+{
+ "deri": {
+  "id": "deri",
+  "dosya": "systems-female/deri.glb",
+  "obje": 20,
+  "odunc": 0,
+  "ucgen_ham": 1134861,
+  "decimate_orani": 0.2289,
+  "boyut_mb": 3
+ },
+ "sinir": {
+  "id": "sinir",
+  "dosya": "systems-female/sinir.glb",
+  "obje": 362,
+  "odunc": 0,
+  "ucgen_ham": 1693239,
+  "decimate_orani": 0.2593,
+  "boyut_mb": 5.27
+ },
+ "kas": {
+  "id": "kas",
+  "dosya": "systems-female/kas.glb",
+  "obje": 16,
+  "odunc": 0,
+  "ucgen_ham": 110716,
+  "decimate_orani": 0.6321,
+  "boyut_mb": 0.81
+ },
+ "ic-organlar": {
+  "id": "ic-organlar",
+  "dosya": "systems-female/ic-organlar.glb",
+  "obje": 285,
+  "odunc": 0,
+  "ucgen_ham": 2873327,
+  "decimate_orani": 0.1709,
+  "boyut_mb": 5.85
+ },
+ "lenf": {
+  "id": "lenf",
+  "dosya": "systems-female/lenf.glb",
+  "obje": 16,
+  "odunc": 0,
+  "ucgen_ham": 296485,
+  "decimate_orani": 0.1646,
+  "boyut_mb": 0.56
+ },
+ "dolasim": {
+  "id": "dolasim",
+  "dosya": "systems-female/dolasim.glb",
+  "obje": 124,
+  "odunc": 0,
+  "ucgen_ham": 479185,
+  "decimate_orani": 0.6259,
+  "boyut_mb": 3.54
+ },
+ "iskelet": {
+  "id": "iskelet",
+  "dosya": "systems-female/iskelet.glb",
+  "obje": 269,
+  "odunc": 200,
+  "ucgen_ham": 817129,
+  "decimate_orani": 0.4667,
+  "boyut_mb": 4.52
+ },
+ "eklem": {
+  "id": "eklem",
+  "dosya": "systems-female/eklem.glb",
+  "obje": 72,
+  "odunc": 0,
+  "ucgen_ham": 626626,
+  "decimate_orani": 0.1762,
+  "boyut_mb": 1.31
+ }
+}

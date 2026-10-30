@@ -71,6 +71,22 @@ body {
 }
 
 .header-actions { display: flex; gap: 8px; }
+.veterinary-link { text-decoration: none; display: inline-flex; align-items: center; }
+
+/* Male / female body switch */
+.body-switch { display: inline-flex; }
+.body-switch .body-btn { font-size: 14px; line-height: 1; padding: 7px 11px; }
+.body-switch .body-btn:first-child { border-radius: 8px 0 0 8px; }
+.body-switch .body-btn:last-child { border-radius: 0 8px 8px 0; margin-left: -1px; }
+.body-switch .body-btn.active { color: var(--accent); border-color: rgba(127, 178, 229, 0.55); background: rgba(127, 178, 229, 0.12); }
+.body-switch .body-btn:disabled { opacity: 0.5; cursor: progress; }
+/* `hidden` must beat the display rules of .control-row.toggle */
+[data-body-only][hidden] { display: none !important; }
+@media (max-width: 480px) {
+    .app-header .header-actions { gap: 4px; }
+    .app-header .ghost-btn { padding: 7px 6px; font-size: 10px; }
+    .app-header .wordmark { letter-spacing: 0.03em; }
+}
 
 .ghost-btn {
     padding: 8px 14px;

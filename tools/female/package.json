@@ -1,0 +1,12 @@
+{
+  "name": "anatomy360-female-pipeline",
+  "private": true,
+  "type": "module",
+  "description": "Converts the HuBMAP Human Reference Atlas female body into the app's per-system GLBs.",
+  "dependencies": {
+    "@gltf-transform/core": "4.2.1",
+    "@gltf-transform/extensions": "4.2.1",
+    "@gltf-transform/functions": "4.2.1",
+    "meshoptimizer": "0.22.0"
+  }
+}

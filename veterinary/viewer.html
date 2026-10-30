@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Anatomy 360 | Veterinary Anatomy</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M8 12a3 3 0 1 1 0-.1M14 8a3 3 0 1 1 0-.1M20 8a3 3 0 1 1 0-.1M26 12a3 3 0 1 1 0-.1M10 24c0-5 3-8 7-8s7 3 7 8c0 3-3 3-7 2-4 1-7 1-7-2z' fill='%23e6c79c'/%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css?v=vet1">
+    <link rel="stylesheet" href="css/vet.css?v=vet2">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "../vendor/three/three.module.min.js",
+            "three/addons/": "../vendor/three/addons/",
+            "three-mesh-bvh": "../vendor/three-mesh-bvh/index.module.js"
+        }
+    }
+    </script>
+</head>
+<body class="vet">
+    <div id="canvas-container"></div>
+
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p id="loading-text"></p>
+        <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+        <p class="progress-count" id="progress-count"></p>
+    </div>
+
+    <header class="app-header">
+        <div class="brand">
+            <div class="brand-text">
+                <a class="wordmark" href="../index.html">ANATOMY 360</a>
+                <h1 id="species-title">—</h1>
+                <span class="badge" data-i18n="vet.brandSub">Veterinary Anatomy · VT-ARIES Models</span>
+            </div>
+        </div>
+        <nav class="species-switch" id="species-switch" aria-label="Species"></nav>
+        <div class="header-actions">
+            <a class="ghost-btn" href="../index.html" data-i18n="vet.human">Human</a>
+            <button class="ghost-btn" id="lang-btn" data-i18n="btn.lang" data-i18n-title="btn.langTitle">BM</button>
+            <button class="ghost-btn" id="reset-view-btn" data-i18n="btn.reset">Reset View</button>
+            <button class="ghost-btn" id="spin-btn" aria-pressed="true">Auto-Rotate: On</button>
+        </div>
+    </header>
+
+    <aside class="left-panel glass">
+        <div class="panel-head">
+            <h3 data-i18n="panel.regions">REGIONS</h3>
+            <span class="hint" data-i18n="panel.regionsHint">Click: focus that region · Eye: show/hide</span>
+        </div>
+        <div id="region-list" class="system-list"></div>
+
+        <div class="panel-head margin-top">
+            <h3 data-i18n="panel.view">VIEW</h3>
+        </div>
+        <div class="control-row">
+            <label for="opacity-slider" data-i18n="ctl.dim">Opacity of other regions</label>
+            <input type="range" id="opacity-slider" min="0" max="100" value="18">
+        </div>
+        <div class="control-row toggle">
+            <label for="xray-toggle" data-i18n="ctl.xray">X-ray mode</label>
+            <input type="checkbox" id="xray-toggle" class="switch">
+        </div>
+        <div class="control-row toggle">
+            <label for="hover-toggle" data-i18n="ctl.hover">Show structure name (hover)</label>
+            <input type="checkbox" id="hover-toggle" class="switch" checked>
+        </div>
+        <button class="cam-btn wide-btn" id="show-all-btn" data-i18n="btn.showAll">Show all</button>
+
+        <div class="panel-head margin-top">
+            <h3 data-i18n="panel.camera">CAMERA</h3>
+        </div>
+        <div class="cam-grid">
+            <button class="cam-btn" data-cam="left" data-i18n="cam.left">Left</button>
+            <button class="cam-btn" data-cam="front" data-i18n="cam.front">Front</button>
+            <button class="cam-btn" data-cam="right" data-i18n="cam.right">Right</button>
+            <button class="cam-btn" data-cam="top" data-i18n="cam.top">Top</button>
+            <button class="cam-btn" data-cam="back" data-i18n="cam.back">Back</button>
+            <button class="cam-btn" data-cam="head" data-i18n="cam.head">Head</button>
+        </div>
+    </aside>
+
+    <aside class="right-panel glass" id="info-panel">
+        <div class="panel-head">
+            <div class="sys-dot" id="info-dot"></div>
+            <h2 id="info-title">—</h2>
+        </div>
+        <div class="latin" id="info-latin">—</div>
+        <div class="panel-body">
+            <section class="info-block">
+                <h4 data-i18n="info.selected">Selected Structure</h4>
+                <p class="structure-empty" id="structure-empty" data-i18n="info.none">Click the model or pick from the list.</p>
+                <div id="structure-block" hidden>
+                    <p class="structure-name" id="structure-name"></p>
+                    <p class="structure-side" id="structure-side"></p>
+                    <div class="action-row">
+                        <button class="cam-btn" id="act-focus" data-i18n="act.focus">Focus</button>
+                        <button class="cam-btn" id="act-isolate" data-i18n="act.isolate">Isolate</button>
+                        <button class="cam-btn" id="act-hide" data-i18n="act.hide">Hide</button>
+                        <button class="cam-btn" id="act-clear" data-i18n="act.clear">Clear</button>
+                    </div>
+                </div>
+            </section>
+            <section class="info-block">
+                <h4><span data-i18n="browse.title">Structures</span> <span class="browse-count" id="browse-count"></span></h4>
+                <div class="browse-nav">
+                    <button class="cam-btn" id="prev-structure" data-i18n-title="browse.prev">◀</button>
+                    <input type="search" id="structure-search" class="search-input" autocomplete="off" data-i18n-placeholder="browse.search" placeholder="Search structures…">
+                    <button class="cam-btn" id="next-structure" data-i18n-title="browse.next">▶</button>
+                </div>
+                <ul class="structure-list" id="structure-list"></ul>
+                <p class="fine" data-i18n="info.coverage">Source labels from VT-ARIES are kept; some may need correction.</p>
+                <p class="fine warn" id="missing-note" hidden></p>
+            </section>
+        </div>
+    </aside>
+
+    <div id="tooltip" class="tooltip"></div>
+    <div id="focus-marker" class="focus-marker" hidden></div>
+
+    <footer class="app-footer">
+        <span data-i18n-html="footer.rotate"><strong>Drag:</strong> rotate</span>
+        <span data-i18n-html="footer.pan"><strong>Right-drag:</strong> pan</span>
+        <span data-i18n-html="footer.zoom"><strong>Scroll / pinch:</strong> zoom</span>
+        <span class="attrib" data-i18n-html="footer.credit"></span>
+    </footer>
+
+    <nav class="mobile-bar" id="mobile-bar">
+        <button class="mob-btn" data-panel="left-panel" data-i18n-html="mob.regions">◧ Regions &amp; View</button>
+        <button class="mob-btn" data-panel="info-panel" data-i18n-html="mob.info">◨ Structures</button>
+    </nav>
+
+    <script type="module" src="js/viewer.js?v=vet2"></script>
+    <script src="../mobile.js?v=vet1"></script>
+</body>
+</html>

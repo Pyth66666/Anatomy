@@ -10,3 +10,6 @@ data/blend_report.json
 .DS_Store
 __pycache__/
 *.pyc
+
+# Female build pipeline (npm install in tools/female)
+tools/female/node_modules/

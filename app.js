@@ -23,7 +23,7 @@ THREE.Mesh.prototype.raycast = acceleratedRaycast;
 // -------------------------------------------------------------
 // SYSTEM DEFINITIONS (names/descriptions live in i18n.js as sys.<id>.name/desc)
 // -------------------------------------------------------------
-const SYSTEMS = [
+const BASE_SYSTEMS = [
     { id: 'iskelet', latin: 'Systema skeletale', hex: '#e8dcc8', oncelik: 0 },
     { id: 'eklem', latin: 'Articulationes', hex: '#9fd8cb', oncelik: 1 },
     { id: 'kas', latin: 'Systema musculare', hex: '#c8564f', oncelik: 2 },
@@ -32,13 +32,26 @@ const SYSTEMS = [
     { id: 'ic-organlar', latin: 'Systemata visceralia', hex: '#c98a5e', oncelik: 5 },
     { id: 'lenf', latin: 'Systema lymphoideum', hex: '#7fb2e5', oncelik: 6 }
 ];
-const sysName = (id) => t(`sys.${id}.name`);
-const sysDesc = (id) => t(`sys.${id}.desc`);
 
-// 3B veri sürümü — GLB'ler yeniden üretildiğinde tools/stamp_data.py ile
-// güncellenir. Tarayıcı önbelleği aksi halde eski modeli servis ediyor
-// (dolaşım sistemi 676 yapıya çıktığı hâlde 22 yapılık eski dosya geliyordu).
-const DATA_VERSION = 'cce8b7a6';
+// Two reference bodies. `version` is the cache-buster for that body's GLBs —
+// male: tools/stamp_data.py, female: bump after tools/female/build.mjs.
+// (Tarayıcı önbelleği aksi halde eski modeli servis ediyor.)
+const BODIES = {
+    male: { dir: 'systems', meta: 'data/systems.json', version: 'cce8b7a6', systems: BASE_SYSTEMS },
+    female: {
+        dir: 'systems-female', meta: 'data/systems-female.json', version: 'f2',
+        systems: [...BASE_SYSTEMS, { id: 'deri', latin: 'Integumentum commune', hex: '#d9a58a', oncelik: 7 }]
+    }
+};
+let SYSTEMS = BASE_SYSTEMS;   // the active body's systems
+let BODY_ID = 'male';
+
+const sysName = (id) => t(`sys.${id}.name`);
+// The female source covers some systems only partly; say so where it does.
+const sysDesc = (id) => {
+    const note = BODY_ID === 'female' ? t(`sys.${id}.femaleNote`) : '';
+    return t(`sys.${id}.desc`) + (note && note !== `sys.${id}.femaleNote` ? ' ' + note : '');
+};
 
 // Structure name suffixes: .l/.r side, parentheses = alternative/older term
 const SIDES = new Set(['l', 'r', 'ol', 'or']);
@@ -46,18 +59,37 @@ const SIDES = new Set(['l', 'r', 'ol', 'or']);
 // Örtü katmanları: altındaki yapıları tamamen kapatan zarlar. Anatomik olarak
 // doğru ama açıkken kasları/organları göstermiyor, o yüzden ayrı mesh'e alınıp
 // varsayılan olarak kapatılıyor.
-const COVER_RE = /fascia|aponeuros|retinacul|peritone|pleura|dura mater|pericardi|omentum|epicardium/i;
+const COVER_RE = /fascia|aponeuros|retinacul|peritone|pleura|dura mater|pericardi|omentum|epicardium|adipose/i;
 const isCover = (name) => COVER_RE.test(name);
+
+// Female body only: placenta and umbilical structures are a pregnancy
+// reference, hidden by default; bones the female source lacks are borrowed
+// from the male atlas (tools/female/build.mjs) and carry this tag.
+const PREGNANCY_RE = /placenta|umbilical|amnion/i;
+const BORROWED_TAG = ' [male-derived]';
+const isBorrowed = (name) => name.endsWith(BORROWED_TAG);
+const BORROWED_COLOR = new THREE.Color('#9fb3c8');
+
+/** Which merged mesh of a layer a structure goes into. */
+function bucketOf(name) {
+    if (isBorrowed(name)) return 'borrowed';
+    if (PREGNANCY_RE.test(name)) return 'pregnancy';
+    if (isGenital(name)) return 'genital';
+    return isCover(name) ? 'cover' : 'main';
+}
+const BUCKETS = ['main', 'cover', 'genital', 'pregnancy', 'borrowed'];
 
 // Üreme sistemi yapıları. Okul/sınıf ortamında varsayılan olarak kapalı;
 // anatomik bütünlük için silinmiyor, ayrı katmana alınıp anahtarla açılıyor.
 // (Üretra idrar yolunun da parçası olduğu için kapsam dışında bırakıldı.)
-const GENITAL_RE = /penis|scrot|testis|testicul|epididym|prostat|seminal|ductus deferens|spermat|glans|corpus cavernos|corpus spongios|uter|ovar|vagin|clitor|salping/i;
+const GENITAL_RE = /penis|scrot|testis|testicul|epididym|prostat|seminal|ductus deferens|spermat|glans|corpus cavernos|corpus spongios|uter|ovar|vagin|clitor|salping|fallopian|cervi(x|cal os|covaginal)|mesosalpinx|mesovarium|uterovesical/i;
 const isGenital = (name) => GENITAL_RE.test(name);
 
 function parseStructureName(raw) {
     let name = (raw || '').trim();
     let side = null;
+    const borrowed = isBorrowed(name);
+    if (borrowed) name = name.slice(0, -BORROWED_TAG.length);
 
     const m = name.match(/\.(ol|or|l|r)$/i);
     if (m) {
@@ -77,7 +109,19 @@ function parseStructureName(raw) {
         name = name.slice(1, -1);
         note = t('note.alt');
     }
+    if (borrowed) note = t('note.borrowed');
     return { name: name.trim(), side, note };
+}
+
+/** ?body=female in the URL wins, then the last choice, then male. */
+function initialBody() {
+    const fromUrl = new URLSearchParams(location.search).get('body');
+    if (BODIES[fromUrl]) return fromUrl;
+    try {
+        const saved = localStorage.getItem('anatomy360.body');
+        if (BODIES[saved]) return saved;
+    } catch (e) { /* storage blocked */ }
+    return 'male';
 }
 
 // -------------------------------------------------------------
@@ -130,7 +174,10 @@ class AnatomyApp {
         this.showCovers = false;     // fasya/periton gibi örtü zarları
         this.showGenital = true;     // üreme sistemi varsayılan AÇIK (anatomik bütünlük);
                                      // yalnız tanıtım videosunda kapatılıyor
+        this.showPregnancy = false;  // female: placenta/umbilical reference
+        this.showBorrowed = true;    // female: male-derived placeholder bones
         this.dimOpacity = 0.16;
+        this.setBodyState(initialBody());
 
         this.raycaster = new THREE.Raycaster();
         this.raycaster.firstHitOnly = true;
@@ -142,12 +189,82 @@ class AnatomyApp {
         this.buildSystemList();
         this.initEvents();
         this.initBrowser();
+        this.updateBodyUi();
+        this.loadMeta();
         onLangChange(() => this.refreshLanguage());
 
         this.animate = this.animate.bind(this);
         requestAnimationFrame(this.animate);
 
         this.selectSystem('iskelet');
+    }
+
+    // ---------------------------------------------------------
+    // BODY (male / female)
+    // ---------------------------------------------------------
+    setBodyState(id) {
+        BODY_ID = id;
+        SYSTEMS = BODIES[id].systems;
+        this.bodyId = id;
+        this.body = BODIES[id];
+    }
+
+    loadMeta() {
+        const body = this.body;
+        this.systemsMeta = null;
+        fetch(body.meta)
+            .then(r => r.json())
+            .then(m => {
+                if (body !== this.body) return;
+                this.systemsMeta = m;
+                if (this.activeSystem) this.showSystemInfo(this.activeSystem);
+            })
+            .catch(() => {});
+    }
+
+    updateBodyUi() {
+        document.querySelectorAll('.body-btn').forEach(b => {
+            const on = b.dataset.body === this.bodyId;
+            b.classList.toggle('active', on);
+            b.setAttribute('aria-pressed', String(on));
+            b.disabled = this.loading.size > 0;
+        });
+        document.querySelectorAll('[data-body-only]').forEach(el => {
+            el.hidden = el.dataset.bodyOnly !== this.bodyId;
+        });
+    }
+
+    async switchBody(id) {
+        if (id === this.bodyId || !BODIES[id] || this.loading.size) return;
+        // Drop every layer of the old body.
+        this.layers.forEach(l => l.parts.forEach(p => {
+            this.bodyPivot.remove(p.mesh);
+            p.mesh.geometry.disposeBoundsTree();
+            p.mesh.geometry.dispose();
+            p.mesh.material.dispose();
+        }));
+        this.layers.clear();
+        this.hovered = null;
+        this.selected = null;
+        this.lastHoverKey = null;
+        this.updateHighlight();
+        this.hideTooltip();
+        document.getElementById('structure-block').hidden = true;
+
+        this.setBodyState(id);
+        try { localStorage.setItem('anatomy360.body', id); } catch (e) { /* storage blocked */ }
+        const url = new URL(location.href);
+        url.searchParams.set('body', id);
+        history.replaceState(null, '', url);
+
+        this.normalized = false;
+        this.bodyPivot.scale.setScalar(1);
+        this.bodyPivot.position.set(0, 0, 0);
+        this.activeSystem = null;
+        this.buildSystemList();
+        this.updateBodyUi();
+        this.loadMeta();
+        await this.selectSystem('iskelet');
     }
 
     initLights() {
@@ -174,7 +291,10 @@ class AnatomyApp {
         this.loading.add(id);
         this.setLoading(true, t('loading.system', { name: sysName(id) }));
 
-        const gltf = await this.loader.loadAsync(`systems/${id}.glb?v=${DATA_VERSION}`);
+        const body = this.body;
+        const gltf = await this.loader.loadAsync(`${body.dir}/${id}.glb?v=${body.version}`);
+        // Body switched while this file was downloading: discard it.
+        if (body !== this.body) { this.loading.delete(id); if (!this.loading.size) this.setLoading(false); return null; }
 
         // three.js GLTFLoader node adlarını animasyon bağlaması için sterilize
         // eder (nokta silinir, boşluk "_" olur) -> "Incus.l" adı "Incusl" olur.
@@ -191,7 +311,7 @@ class AnatomyApp {
 
         // Yapıları "ana" ve "örtü" olarak iki gruba ayırıp her grubu tek
         // geometride birleştir; köşe başına structureId yaz.
-        const buckets = { main: [], cover: [], genital: [] };
+        const buckets = Object.fromEntries(BUCKETS.map(k => [k, []]));
         const names = [];
         gltf.scene.updateMatrixWorld(true);
         gltf.scene.traverse((child) => {
@@ -209,19 +329,19 @@ class AnatomyApp {
             const n = geom.attributes.position.count;
             const ids = new Float32Array(n).fill(structureId);
             geom.setAttribute('structureId', new THREE.BufferAttribute(ids, 1));
-            const kova = isGenital(name) ? 'genital' : (isCover(name) ? 'cover' : 'main');
-            buckets[kova].push(geom);
+            buckets[bucketOf(name)].push(geom);
         });
 
         const sys = SYSTEMS.find(s => s.id === id);
         const layer = {
             id, names,
             baseColor: new THREE.Color(sys.hex),
+            borrowed: Uint8Array.from(names, n => isBorrowed(n) ? 1 : 0),
             visible: true,
             parts: []
         };
 
-        for (const kind of ['main', 'cover', 'genital']) {
+        for (const kind of BUCKETS) {
             if (!buckets[kind].length) continue;
             const merged = mergeGeometries(buckets[kind]);
             buckets[kind].forEach(g => g.dispose());
@@ -239,9 +359,7 @@ class AnatomyApp {
             }));
             mesh.name = `${id}:${kind}`;
             mesh.userData.systemId = id;
-            mesh.visible = kind === 'main'
-                || (kind === 'cover' && this.showCovers)
-                || (kind === 'genital' && this.showGenital);
+            mesh.visible = this.kindVisible(kind);
 
             layer.parts.push({
                 kind, mesh,
@@ -307,9 +425,10 @@ class AnatomyApp {
         for (const part of layer.parts) {
             const colors = part.colorAttr.array;
             const ids = part.structureIds;
+            const c = part.kind === 'borrowed' ? BORROWED_COLOR : base;
             for (let i = 0; i < ids.length; i++) {
                 const k = dim * shades[ids[i]];
-                let r = base.r * k, g = base.g * k, b = base.b * k;
+                let r = c.r * k, g = c.g * k, b = c.b * k;
                 if (ids[i] === selId) { r = 1.0; g = 0.86; b = 0.35; }
                 else if (ids[i] === hoverId) {
                     r = Math.min(1, r * 1.5 + 0.18);
@@ -325,11 +444,16 @@ class AnatomyApp {
             mat.opacity = isActive ? (part.kind === 'cover' ? 0.5 : 1) : this.dimOpacity;
             mat.depthWrite = mat.opacity > 0.9;
             mat.transparent = mat.opacity < 0.999;
-            part.mesh.visible = layer.visible && (
-                part.kind === 'main'
-                || (part.kind === 'cover' && this.showCovers)
-                || (part.kind === 'genital' && this.showGenital));
+            part.mesh.visible = layer.visible && this.kindVisible(part.kind);
         }
+    }
+
+    kindVisible(kind) {
+        return kind === 'main'
+            || (kind === 'cover' && this.showCovers)
+            || (kind === 'genital' && this.showGenital)
+            || (kind === 'pregnancy' && this.showPregnancy)
+            || (kind === 'borrowed' && this.showBorrowed);
     }
 
     repaintAll() {
@@ -358,7 +482,8 @@ class AnatomyApp {
                 const range = part.ranges.get(sid);
                 if (!range) continue;
                 const k = dim * layer.shades[sid];
-                let r = base.r * k, g = base.g * k, b = base.b * k;
+                const c = layer.borrowed[sid] ? BORROWED_COLOR : base;
+                let r = c.r * k, g = c.g * k, b = c.b * k;
                 if (sid === selId) { r = 1.0; g = 0.86; b = 0.35; }
                 else if (sid === hoverId) {
                     r = Math.min(1, r * 1.5 + 0.18);
@@ -740,6 +865,7 @@ class AnatomyApp {
             specs.push([t('spec.tris'), meta.ucgen_ham.toLocaleString(getLang() === 'ms' ? 'ms-MY' : 'en-US')]);
             specs.push([t('spec.decimate'), `${Math.round(meta.decimate_orani * 100)}%`]);
             specs.push([t('spec.size'), `${meta.boyut_mb} MB`]);
+            if (meta.odunc) specs.push([t('spec.borrowed'), meta.odunc]);
         }
         document.getElementById('info-specs').innerHTML =
             specs.map(([k, v]) => `<li><strong>${k}:</strong> ${v}</li>`).join('');
@@ -762,6 +888,7 @@ class AnatomyApp {
         const ov = document.getElementById('loading-overlay');
         if (text) document.getElementById('loading-text').textContent = text;
         ov.classList.toggle('hidden', !on);
+        this.updateBodyUi();   // body can't switch mid-download
     }
 
     // ---------------------------------------------------------
@@ -844,6 +971,7 @@ class AnatomyApp {
             this.camera.aspect = w / h;
             this.camera.updateProjectionMatrix();
             this.renderer.setSize(w, h);
+            this.viewOffset = -1;   // re-apply the drawer offset for the new size
 
             // En-boy oranı değişti: kadrajı yeniden hesapla (telefon döndürme)
             if (!this.flying && this.normalized && this.lastView) {
@@ -913,14 +1041,40 @@ class AnatomyApp {
             this.repaintAll();
         });
 
+        document.getElementById('pregnancy-toggle').addEventListener('change', (e) => {
+            this.showPregnancy = e.target.checked;
+            this.repaintAll();
+        });
+
+        document.getElementById('borrowed-toggle').addEventListener('change', (e) => {
+            this.showBorrowed = e.target.checked;
+            this.repaintAll();
+        });
+
+        document.querySelectorAll('.body-btn').forEach(btn => {
+            btn.addEventListener('click', () => this.switchBody(btn.dataset.body));
+        });
+
         document.getElementById('hover-toggle').addEventListener('change', (e) => {
             this.showHoverName = e.target.checked;
             if (!this.showHoverName) { this.hovered = null; this.hideTooltip(); this.repaintAll(); }
         });
     }
 
+    /** On phones a drawer covers the lower screen; shift the view so the body stays visible. */
+    updateViewOffset() {
+        const drawer = this.width <= 860 && document.querySelector('.left-panel.open, .right-panel.open');
+        const off = drawer ? Math.round(drawer.offsetHeight / 2) : 0;
+        if (off === this.viewOffset) return;
+        this.viewOffset = off;
+        this.lastHoverKey = null;   // picking depends on the projection too
+        if (off) this.camera.setViewOffset(this.width, this.height, 0, off, this.width, this.height);
+        else this.camera.clearViewOffset();
+    }
+
     animate() {
         requestAnimationFrame(this.animate);
+        this.updateViewOffset();
         if (this.autoSpin && !this.flying && this.controls.state === -1) {
             this.bodyGroup.rotation.y += 0.0022;
         }
@@ -995,7 +1149,3 @@ function mergeGeometries(geoms) {
 const app = new AnatomyApp();
 window.anatomyApp = app;
 
-fetch('data/systems.json')
-    .then(r => r.json())
-    .then(m => { app.systemsMeta = m; app.showSystemInfo(app.activeSystem); })
-    .catch(() => {});

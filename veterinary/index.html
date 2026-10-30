@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free 3D veterinary anatomy: dog, horse and cow skeletons and organs, in English and Malay.">
+    <title>Anatomy 360 | Veterinary Anatomy</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M8 12a3 3 0 1 1 0-.1M14 8a3 3 0 1 1 0-.1M20 8a3 3 0 1 1 0-.1M26 12a3 3 0 1 1 0-.1M10 24c0-5 3-8 7-8s7 3 7 8c0 3-3 3-7 2-4 1-7 1-7-2z' fill='%23e6c79c'/%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css?v=vet1">
+    <link rel="stylesheet" href="css/vet.css?v=vet2">
+</head>
+<body class="vet vet-home">
+    <header class="app-header">
+        <div class="brand">
+            <div class="brand-text">
+                <a class="wordmark" href="../index.html">ANATOMY 360</a>
+                <h1 data-i18n="vet.vet">Veterinary</h1>
+                <span class="badge" data-i18n="vet.brandSub">Veterinary Anatomy · VT-ARIES Models</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a class="ghost-btn" href="../index.html" data-i18n="vet.human">Human</a>
+            <button class="ghost-btn" id="lang-btn" data-i18n="btn.lang" data-i18n-title="btn.langTitle">BM</button>
+        </div>
+    </header>
+
+    <main class="home-main">
+        <p class="eyebrow" data-i18n="home.eyebrow">VETERINARY ATLAS</p>
+        <h2 class="hero-title" data-i18n="home.title">Comparative anatomy, in 3D.</h2>
+        <p class="lead" data-i18n="home.lead"></p>
+        <p class="lead-note" data-i18n="home.note"></p>
+
+        <section class="species-grid" id="species-grid" aria-label="Species"></section>
+
+        <section class="coverage">
+            <h3 data-i18n="home.coverageTitle">Know the coverage</h3>
+            <p data-i18n="home.coverage"></p>
+        </section>
+    </main>
+
+    <footer class="home-footer" data-i18n-html="footer.credit"></footer>
+
+    <script type="module" src="js/home.js?v=vet1"></script>
+</body>
+</html>

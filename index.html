@@ -6,7 +6,7 @@
     <title>Anatomy 360 | Full-Body Human Anatomy</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='7' r='5' fill='%23e8dcc8'/%3E%3Cpath d='M9 30V18a7 7 0 0 1 14 0v12' fill='none' stroke='%23e8dcc8' stroke-width='4'/%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=browse3">
+    <link rel="stylesheet" href="styles.css?v=female1">
     <script type="importmap">
     {
         "imports": {
@@ -34,6 +34,11 @@
             </div>
         </div>
         <div class="header-actions">
+            <div class="body-switch" role="group" data-i18n-title="body.switch">
+                <button class="ghost-btn body-btn" data-body="male" data-i18n-title="body.male">♂</button>
+                <button class="ghost-btn body-btn" data-body="female" data-i18n-title="body.female">♀</button>
+            </div>
+            <a class="ghost-btn veterinary-link" href="veterinary/" data-i18n="nav.veterinary">Veterinary</a>
             <button class="ghost-btn" id="lang-btn" data-i18n="btn.lang" data-i18n-title="btn.langTitle">BM</button>
             <button class="ghost-btn" id="reset-view-btn" data-i18n="btn.reset">Reset View</button>
             <button class="ghost-btn" id="spin-btn" aria-pressed="true">Auto-Rotate: On</button>
@@ -71,6 +76,16 @@
         <div class="control-row toggle">
             <label for="genital-toggle" data-i18n="ctl.genital">Reproductive system</label>
             <input type="checkbox" id="genital-toggle" class="switch" checked>
+        </div>
+
+        <div class="control-row toggle" data-body-only="female" hidden>
+            <label for="pregnancy-toggle" data-i18n="ctl.pregnancy">Pregnancy (placenta, umbilical cord)</label>
+            <input type="checkbox" id="pregnancy-toggle" class="switch">
+        </div>
+
+        <div class="control-row toggle" data-body-only="female" hidden>
+            <label for="borrowed-toggle" data-i18n-html="ctl.borrowed">Placeholder bones <em>(male-derived)</em></label>
+            <input type="checkbox" id="borrowed-toggle" class="switch" checked>
         </div>
 
         <div class="panel-head margin-top">
@@ -125,7 +140,7 @@
         <span data-i18n-html="footer.rotate"><strong>Left-click + drag:</strong> rotate</span>
         <span data-i18n-html="footer.pan"><strong>Right-click + drag:</strong> pan</span>
         <span data-i18n-html="footer.zoom"><strong>Scroll wheel:</strong> zoom</span>
-        <span class="attrib">Model: BodyParts3D — DBCLS — CC-BY-SA 2.1 JP · Z-Anatomy — CC-BY-SA 4.0 · <span data-i18n-html="footer.basedOn"></span></span>
+        <span class="attrib">Model: BodyParts3D — DBCLS — CC-BY-SA 2.1 JP · Z-Anatomy — CC-BY-SA 4.0<span data-body-only="female" hidden> · <span data-i18n-html="footer.female"></span></span> · <span data-i18n-html="footer.basedOn"></span></span>
     </footer>
 
     <!-- Mobile: panels open as bottom drawers -->
@@ -134,7 +149,7 @@
         <button class="mob-btn" data-panel="info-panel" data-i18n-html="mob.info">◨ Info Card</button>
     </nav>
 
-    <script type="module" src="app.js?v=browse3"></script>
+    <script type="module" src="app.js?v=female1"></script>
     <script src="mobile.js?v=0cde8498"></script>
     <script>
         // Automated demo tour: ?demo=1 (landscape) · ?demo=dikey (9:16, Reels)

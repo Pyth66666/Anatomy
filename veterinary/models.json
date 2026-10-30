@@ -1,0 +1,1905 @@
+{
+  "species": [
+    {
+      "id": "Bovine",
+      "regions": [
+        {
+          "id": "Back Legs",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Body of Illium",
+                  "file": "models/Bovine/Back Legs/Body of Illium.glb"
+                },
+                {
+                  "id": "Calcaneus",
+                  "file": "models/Bovine/Back Legs/Calcaneus.glb"
+                },
+                {
+                  "id": "Distal Phalanges",
+                  "file": "models/Bovine/Back Legs/Distal Phalanges.glb"
+                },
+                {
+                  "id": "Distal Sesamoids",
+                  "file": "models/Bovine/Back Legs/Distal Sesamoids.glb"
+                },
+                {
+                  "id": "Femur",
+                  "file": "models/Bovine/Back Legs/Femur.glb"
+                },
+                {
+                  "id": "Fused 3rd-4th Metatarsals",
+                  "file": "models/Bovine/Back Legs/Fused 3rd-4th Metatarsals.glb"
+                },
+                {
+                  "id": "Middle_Phalanges",
+                  "file": "models/Bovine/Back Legs/Middle_Phalanges.glb"
+                },
+                {
+                  "id": "Patella",
+                  "file": "models/Bovine/Back Legs/Patella.glb"
+                },
+                {
+                  "id": "Proximal Phalanges",
+                  "file": "models/Bovine/Back Legs/Proximal Phalanges.glb"
+                },
+                {
+                  "id": "Proximal_Sesamoids",
+                  "file": "models/Bovine/Back Legs/Proximal_Sesamoids.glb"
+                },
+                {
+                  "id": "Talus",
+                  "file": "models/Bovine/Back Legs/Talus.glb"
+                },
+                {
+                  "id": "Tarsals",
+                  "file": "models/Bovine/Back Legs/Tarsals.glb"
+                },
+                {
+                  "id": "Tibia",
+                  "file": "models/Bovine/Back Legs/Tibia.glb"
+                },
+                {
+                  "id": "Unknown_Tibia",
+                  "file": "models/Bovine/Back Legs/Unknown_Tibia.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Front_Legs",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Carpals",
+                  "file": "models/Bovine/Front_Legs/Carpals.glb"
+                },
+                {
+                  "id": "Fifth Metacarpals",
+                  "file": "models/Bovine/Front_Legs/Fifth Metacarpals.glb"
+                },
+                {
+                  "id": "Fused third fourth metacarpals",
+                  "file": "models/Bovine/Front_Legs/Fused third fourth metacarpals.glb"
+                },
+                {
+                  "id": "Humerus",
+                  "file": "models/Bovine/Front_Legs/Humerus.glb"
+                },
+                {
+                  "id": "Phalanges",
+                  "file": "models/Bovine/Front_Legs/Phalanges.glb"
+                },
+                {
+                  "id": "Radius",
+                  "file": "models/Bovine/Front_Legs/Radius.glb"
+                },
+                {
+                  "id": "Scalpula",
+                  "file": "models/Bovine/Front_Legs/Scalpula.glb"
+                },
+                {
+                  "id": "Sesamoids",
+                  "file": "models/Bovine/Front_Legs/Sesamoids.glb"
+                },
+                {
+                  "id": "Ulna",
+                  "file": "models/Bovine/Front_Legs/Ulna.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Ribs_Spine",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Caudal Vertebrae",
+                  "file": "models/Bovine/Ribs_Spine/Caudal Vertebrae.glb"
+                },
+                {
+                  "id": "L1",
+                  "file": "models/Bovine/Ribs_Spine/L1.glb"
+                },
+                {
+                  "id": "L2",
+                  "file": "models/Bovine/Ribs_Spine/L2.glb"
+                },
+                {
+                  "id": "L3",
+                  "file": "models/Bovine/Ribs_Spine/L3.glb"
+                },
+                {
+                  "id": "L4",
+                  "file": "models/Bovine/Ribs_Spine/L4.glb"
+                },
+                {
+                  "id": "L5",
+                  "file": "models/Bovine/Ribs_Spine/L5.glb"
+                },
+                {
+                  "id": "L6",
+                  "file": "models/Bovine/Ribs_Spine/L6.glb"
+                },
+                {
+                  "id": "Ribs",
+                  "file": "models/Bovine/Ribs_Spine/Ribs.glb"
+                },
+                {
+                  "id": "T1",
+                  "file": "models/Bovine/Ribs_Spine/T1.glb"
+                },
+                {
+                  "id": "T10",
+                  "file": "models/Bovine/Ribs_Spine/T10.glb"
+                },
+                {
+                  "id": "T11",
+                  "file": "models/Bovine/Ribs_Spine/T11.glb"
+                },
+                {
+                  "id": "T12",
+                  "file": "models/Bovine/Ribs_Spine/T12.glb"
+                },
+                {
+                  "id": "T13",
+                  "file": "models/Bovine/Ribs_Spine/T13.glb"
+                },
+                {
+                  "id": "T2",
+                  "file": "models/Bovine/Ribs_Spine/T2.glb"
+                },
+                {
+                  "id": "T3",
+                  "file": "models/Bovine/Ribs_Spine/T3.glb"
+                },
+                {
+                  "id": "T4",
+                  "file": "models/Bovine/Ribs_Spine/T4.glb"
+                },
+                {
+                  "id": "T5",
+                  "file": "models/Bovine/Ribs_Spine/T5.glb"
+                },
+                {
+                  "id": "T6",
+                  "file": "models/Bovine/Ribs_Spine/T6.glb"
+                },
+                {
+                  "id": "T7",
+                  "file": "models/Bovine/Ribs_Spine/T7.glb"
+                },
+                {
+                  "id": "T8",
+                  "file": "models/Bovine/Ribs_Spine/T8.glb"
+                },
+                {
+                  "id": "T9",
+                  "file": "models/Bovine/Ribs_Spine/T9.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Skull_Cervical",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Atlas C1",
+                  "file": "models/Bovine/Skull_Cervical/Atlas C1.glb"
+                },
+                {
+                  "id": "C2",
+                  "file": "models/Bovine/Skull_Cervical/C2.glb"
+                },
+                {
+                  "id": "C3",
+                  "file": "models/Bovine/Skull_Cervical/C3.glb"
+                },
+                {
+                  "id": "C4",
+                  "file": "models/Bovine/Skull_Cervical/C4.glb"
+                },
+                {
+                  "id": "C5",
+                  "file": "models/Bovine/Skull_Cervical/C5.glb"
+                },
+                {
+                  "id": "C6",
+                  "file": "models/Bovine/Skull_Cervical/C6.glb"
+                },
+                {
+                  "id": "C7",
+                  "file": "models/Bovine/Skull_Cervical/C7.glb"
+                },
+                {
+                  "id": "Mandible",
+                  "file": "models/Bovine/Skull_Cervical/Mandible.glb"
+                },
+                {
+                  "id": "Mandible Bits",
+                  "file": "models/Bovine/Skull_Cervical/Mandible Bits.glb"
+                },
+                {
+                  "id": "Skull",
+                  "file": "models/Bovine/Skull_Cervical/Skull.glb"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Canine",
+      "regions": [
+        {
+          "id": "Legs",
+          "groups": [
+            {
+              "id": "Left_Back",
+              "pieces": [
+                {
+                  "id": "Calcaneus",
+                  "file": "models/Canine/Legs/Left_Back/Calcaneus.glb"
+                },
+                {
+                  "id": "Central_Tarsal",
+                  "file": "models/Canine/Legs/Left_Back/Central_Tarsal.glb"
+                },
+                {
+                  "id": "Distal_Phalanges",
+                  "file": "models/Canine/Legs/Left_Back/Distal_Phalanges.glb"
+                },
+                {
+                  "id": "Femur",
+                  "file": "models/Canine/Legs/Left_Back/Femur.glb"
+                },
+                {
+                  "id": "Fibula",
+                  "file": "models/Canine/Legs/Left_Back/Fibula.glb"
+                },
+                {
+                  "id": "Metatarsal_I",
+                  "file": "models/Canine/Legs/Left_Back/Metatarsal_I.glb"
+                },
+                {
+                  "id": "Metatarsal_II",
+                  "file": "models/Canine/Legs/Left_Back/Metatarsal_II.glb"
+                },
+                {
+                  "id": "Metatarsal_III",
+                  "file": "models/Canine/Legs/Left_Back/Metatarsal_III.glb"
+                },
+                {
+                  "id": "Metatarsal_IV",
+                  "file": "models/Canine/Legs/Left_Back/Metatarsal_IV.glb"
+                },
+                {
+                  "id": "Metatarsal_V",
+                  "file": "models/Canine/Legs/Left_Back/Metatarsal_V.glb"
+                },
+                {
+                  "id": "Middle_Phalanges",
+                  "file": "models/Canine/Legs/Left_Back/Middle_Phalanges.glb"
+                },
+                {
+                  "id": "Patella",
+                  "file": "models/Canine/Legs/Left_Back/Patella.glb"
+                },
+                {
+                  "id": "Proximal_Phalanges",
+                  "file": "models/Canine/Legs/Left_Back/Proximal_Phalanges.glb"
+                },
+                {
+                  "id": "Proximal_Sesamoid",
+                  "file": "models/Canine/Legs/Left_Back/Proximal_Sesamoid.glb"
+                },
+                {
+                  "id": "Tarsal_I",
+                  "file": "models/Canine/Legs/Left_Back/Tarsal_I.glb"
+                },
+                {
+                  "id": "Tarsal_II",
+                  "file": "models/Canine/Legs/Left_Back/Tarsal_II.glb"
+                },
+                {
+                  "id": "Tarsal_III",
+                  "file": "models/Canine/Legs/Left_Back/Tarsal_III.glb"
+                },
+                {
+                  "id": "Tarsal_IV",
+                  "file": "models/Canine/Legs/Left_Back/Tarsal_IV.glb"
+                },
+                {
+                  "id": "Tibia",
+                  "file": "models/Canine/Legs/Left_Back/Tibia.glb"
+                },
+                {
+                  "id": "Trochlea",
+                  "file": "models/Canine/Legs/Left_Back/Trochlea.glb"
+                }
+              ]
+            },
+            {
+              "id": "Left_Front",
+              "pieces": [
+                {
+                  "id": "Accessory_Carpal",
+                  "file": "models/Canine/Legs/Left_Front/Accessory_Carpal.glb"
+                },
+                {
+                  "id": "Distal_Carpal_I",
+                  "file": "models/Canine/Legs/Left_Front/Distal_Carpal_I.glb"
+                },
+                {
+                  "id": "Distal_Carpal_II",
+                  "file": "models/Canine/Legs/Left_Front/Distal_Carpal_II.glb"
+                },
+                {
+                  "id": "Distal_Carpal_III",
+                  "file": "models/Canine/Legs/Left_Front/Distal_Carpal_III.glb"
+                },
+                {
+                  "id": "Distal_Carpal_IV",
+                  "file": "models/Canine/Legs/Left_Front/Distal_Carpal_IV.glb"
+                },
+                {
+                  "id": "Distal_Phalanges",
+                  "file": "models/Canine/Legs/Left_Front/Distal_Phalanges.glb"
+                },
+                {
+                  "id": "Humerus",
+                  "file": "models/Canine/Legs/Left_Front/Humerus.glb"
+                },
+                {
+                  "id": "Metacarpal_I",
+                  "file": "models/Canine/Legs/Left_Front/Metacarpal_I.glb"
+                },
+                {
+                  "id": "Metacarpal_II",
+                  "file": "models/Canine/Legs/Left_Front/Metacarpal_II.glb"
+                },
+                {
+                  "id": "Metacarpal_III",
+                  "file": "models/Canine/Legs/Left_Front/Metacarpal_III.glb"
+                },
+                {
+                  "id": "Metacarpal_IV",
+                  "file": "models/Canine/Legs/Left_Front/Metacarpal_IV.glb"
+                },
+                {
+                  "id": "Metacarpal_V",
+                  "file": "models/Canine/Legs/Left_Front/Metacarpal_V.glb"
+                },
+                {
+                  "id": "Middle_Phalanges",
+                  "file": "models/Canine/Legs/Left_Front/Middle_Phalanges.glb"
+                },
+                {
+                  "id": "Proximal_Phalanges",
+                  "file": "models/Canine/Legs/Left_Front/Proximal_Phalanges.glb"
+                },
+                {
+                  "id": "Proximal_Sesamoid",
+                  "file": "models/Canine/Legs/Left_Front/Proximal_Sesamoid.glb"
+                },
+                {
+                  "id": "Radial",
+                  "file": "models/Canine/Legs/Left_Front/Radial.glb"
+                },
+                {
+                  "id": "Radius",
+                  "file": "models/Canine/Legs/Left_Front/Radius.glb"
+                },
+                {
+                  "id": "Scapula",
+                  "file": "models/Canine/Legs/Left_Front/Scapula.glb"
+                },
+                {
+                  "id": "Ulna",
+                  "file": "models/Canine/Legs/Left_Front/Ulna.glb"
+                },
+                {
+                  "id": "Ulnar",
+                  "file": "models/Canine/Legs/Left_Front/Ulnar.glb"
+                }
+              ]
+            },
+            {
+              "id": "Right_Back",
+              "pieces": [
+                {
+                  "id": "Calcaneus",
+                  "file": "models/Canine/Legs/Right_Back/Calcaneus.glb"
+                },
+                {
+                  "id": "Central_Tarsal",
+                  "file": "models/Canine/Legs/Right_Back/Central_Tarsal.glb"
+                },
+                {
+                  "id": "Distal_Phalanges",
+                  "file": "models/Canine/Legs/Right_Back/Distal_Phalanges.glb"
+                },
+                {
+                  "id": "Femur",
+                  "file": "models/Canine/Legs/Right_Back/Femur.glb"
+                },
+                {
+                  "id": "Fibula",
+                  "file": "models/Canine/Legs/Right_Back/Fibula.glb"
+                },
+                {
+                  "id": "Metatarsal_I",
+                  "file": "models/Canine/Legs/Right_Back/Metatarsal_I.glb"
+                },
+                {
+                  "id": "Metatarsal_II",
+                  "file": "models/Canine/Legs/Right_Back/Metatarsal_II.glb"
+                },
+                {
+                  "id": "Metatarsal_III",
+                  "file": "models/Canine/Legs/Right_Back/Metatarsal_III.glb"
+                },
+                {
+                  "id": "Metatarsal_IV",
+                  "file": "models/Canine/Legs/Right_Back/Metatarsal_IV.glb"
+                },
+                {
+                  "id": "Metatarsal_V",
+                  "file": "models/Canine/Legs/Right_Back/Metatarsal_V.glb"
+                },
+                {
+                  "id": "Middle_Phalanges",
+                  "file": "models/Canine/Legs/Right_Back/Middle_Phalanges.glb"
+                },
+                {
+                  "id": "Patella",
+                  "file": "models/Canine/Legs/Right_Back/Patella.glb"
+                },
+                {
+                  "id": "Proximal_Phalanges",
+                  "file": "models/Canine/Legs/Right_Back/Proximal_Phalanges.glb"
+                },
+                {
+                  "id": "Proximal_Sesamoid",
+                  "file": "models/Canine/Legs/Right_Back/Proximal_Sesamoid.glb"
+                },
+                {
+                  "id": "Tarsal_I",
+                  "file": "models/Canine/Legs/Right_Back/Tarsal_I.glb"
+                },
+                {
+                  "id": "Tarsal_II",
+                  "file": "models/Canine/Legs/Right_Back/Tarsal_II.glb"
+                },
+                {
+                  "id": "Tarsal_III",
+                  "file": "models/Canine/Legs/Right_Back/Tarsal_III.glb"
+                },
+                {
+                  "id": "Tarsal_IV",
+                  "file": "models/Canine/Legs/Right_Back/Tarsal_IV.glb"
+                },
+                {
+                  "id": "Tibia",
+                  "file": "models/Canine/Legs/Right_Back/Tibia.glb"
+                },
+                {
+                  "id": "Trochlea",
+                  "file": "models/Canine/Legs/Right_Back/Trochlea.glb"
+                }
+              ]
+            },
+            {
+              "id": "Right_Front",
+              "pieces": [
+                {
+                  "id": "Accessory_Carpal",
+                  "file": "models/Canine/Legs/Right_Front/Accessory_Carpal.glb"
+                },
+                {
+                  "id": "Distal_Carpal_I",
+                  "file": "models/Canine/Legs/Right_Front/Distal_Carpal_I.glb"
+                },
+                {
+                  "id": "Distal_Carpal_II",
+                  "file": "models/Canine/Legs/Right_Front/Distal_Carpal_II.glb"
+                },
+                {
+                  "id": "Distal_Carpal_III",
+                  "file": "models/Canine/Legs/Right_Front/Distal_Carpal_III.glb"
+                },
+                {
+                  "id": "Distal_Carpal_IV",
+                  "file": "models/Canine/Legs/Right_Front/Distal_Carpal_IV.glb"
+                },
+                {
+                  "id": "Distal_Phalanges",
+                  "file": "models/Canine/Legs/Right_Front/Distal_Phalanges.glb"
+                },
+                {
+                  "id": "Humerus",
+                  "file": "models/Canine/Legs/Right_Front/Humerus.glb"
+                },
+                {
+                  "id": "Metacarpal_I",
+                  "file": "models/Canine/Legs/Right_Front/Metacarpal_I.glb"
+                },
+                {
+                  "id": "Metacarpal_II",
+                  "file": "models/Canine/Legs/Right_Front/Metacarpal_II.glb"
+                },
+                {
+                  "id": "Metacarpal_III",
+                  "file": "models/Canine/Legs/Right_Front/Metacarpal_III.glb"
+                },
+                {
+                  "id": "Metacarpal_IV",
+                  "file": "models/Canine/Legs/Right_Front/Metacarpal_IV.glb"
+                },
+                {
+                  "id": "Metacarpal_V",
+                  "file": "models/Canine/Legs/Right_Front/Metacarpal_V.glb"
+                },
+                {
+                  "id": "Middle_Phalanges",
+                  "file": "models/Canine/Legs/Right_Front/Middle_Phalanges.glb"
+                },
+                {
+                  "id": "Proximal_Phalanges",
+                  "file": "models/Canine/Legs/Right_Front/Proximal_Phalanges.glb"
+                },
+                {
+                  "id": "Proximal_Sesamoid",
+                  "file": "models/Canine/Legs/Right_Front/Proximal_Sesamoid.glb"
+                },
+                {
+                  "id": "Radial",
+                  "file": "models/Canine/Legs/Right_Front/Radial.glb"
+                },
+                {
+                  "id": "Radius",
+                  "file": "models/Canine/Legs/Right_Front/Radius.glb"
+                },
+                {
+                  "id": "Scapula",
+                  "file": "models/Canine/Legs/Right_Front/Scapula.glb"
+                },
+                {
+                  "id": "Ulna",
+                  "file": "models/Canine/Legs/Right_Front/Ulna.glb"
+                },
+                {
+                  "id": "Ulnar",
+                  "file": "models/Canine/Legs/Right_Front/Ulnar.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Neck",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Basihyoid",
+                  "file": "models/Canine/Neck/Basihyoid.glb"
+                },
+                {
+                  "id": "C1_Atlas",
+                  "file": "models/Canine/Neck/C1_Atlas.glb"
+                },
+                {
+                  "id": "C2_Axis",
+                  "file": "models/Canine/Neck/C2_Axis.glb"
+                },
+                {
+                  "id": "C3",
+                  "file": "models/Canine/Neck/C3.glb"
+                },
+                {
+                  "id": "C4",
+                  "file": "models/Canine/Neck/C4.glb"
+                },
+                {
+                  "id": "C5",
+                  "file": "models/Canine/Neck/C5.glb"
+                },
+                {
+                  "id": "C6",
+                  "file": "models/Canine/Neck/C6.glb"
+                },
+                {
+                  "id": "C7",
+                  "file": "models/Canine/Neck/C7.glb"
+                },
+                {
+                  "id": "Ceratohyoid",
+                  "file": "models/Canine/Neck/Ceratohyoid.glb"
+                },
+                {
+                  "id": "Epihyoid",
+                  "file": "models/Canine/Neck/Epihyoid.glb"
+                },
+                {
+                  "id": "Stylohyoid",
+                  "file": "models/Canine/Neck/Stylohyoid.glb"
+                },
+                {
+                  "id": "Thyrohyoid",
+                  "file": "models/Canine/Neck/Thyrohyoid.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Organs",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Bladder",
+                  "file": "models/Canine/Organs/Bladder.glb"
+                },
+                {
+                  "id": "Duodenom",
+                  "file": "models/Canine/Organs/Duodenom.glb"
+                },
+                {
+                  "id": "Heart",
+                  "file": "models/Canine/Organs/Heart.glb"
+                },
+                {
+                  "id": "Kidneys",
+                  "file": "models/Canine/Organs/Kidneys.glb"
+                },
+                {
+                  "id": "Large_Intestine",
+                  "file": "models/Canine/Organs/Large_Intestine.glb"
+                },
+                {
+                  "id": "Liver",
+                  "file": "models/Canine/Organs/Liver.glb"
+                },
+                {
+                  "id": "Lungs",
+                  "file": "models/Canine/Organs/Lungs.glb"
+                },
+                {
+                  "id": "Renal_Artery",
+                  "file": "models/Canine/Organs/Renal_Artery.glb"
+                },
+                {
+                  "id": "Renal_Artery1",
+                  "file": "models/Canine/Organs/Renal_Artery1.glb"
+                },
+                {
+                  "id": "Renal_Vein",
+                  "file": "models/Canine/Organs/Renal_Vein.glb"
+                },
+                {
+                  "id": "Renal_Vein1",
+                  "file": "models/Canine/Organs/Renal_Vein1.glb"
+                },
+                {
+                  "id": "Small_Intestine",
+                  "file": "models/Canine/Organs/Small_Intestine.glb"
+                },
+                {
+                  "id": "Spleen",
+                  "file": "models/Canine/Organs/Spleen.glb"
+                },
+                {
+                  "id": "Stomach",
+                  "file": "models/Canine/Organs/Stomach.glb"
+                },
+                {
+                  "id": "Ureter",
+                  "file": "models/Canine/Organs/Ureter.glb"
+                },
+                {
+                  "id": "Ureter1",
+                  "file": "models/Canine/Organs/Ureter1.glb"
+                },
+                {
+                  "id": "Vena_Cava",
+                  "file": "models/Canine/Organs/Vena_Cava.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Pelvis_Tail",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Caudal_Vertebrae",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae1",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae1.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae10",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae10.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae11",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae11.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae12",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae12.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae13",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae13.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae14",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae14.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae15",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae15.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae16",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae16.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae17",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae17.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae18",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae18.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae2",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae2.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae3",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae3.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae4",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae4.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae5",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae5.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae6",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae6.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae7",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae7.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae8",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae8.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae9",
+                  "file": "models/Canine/Pelvis_Tail/Caudal_Vertebrae9.glb"
+                },
+                {
+                  "id": "Os_Coxae",
+                  "file": "models/Canine/Pelvis_Tail/Os_Coxae.glb"
+                },
+                {
+                  "id": "Sacrum",
+                  "file": "models/Canine/Pelvis_Tail/Sacrum.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Ribs",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Ribs",
+                  "file": "models/Canine/Ribs/Ribs.glb"
+                },
+                {
+                  "id": "Sternebrae",
+                  "file": "models/Canine/Ribs/Sternebrae.glb"
+                },
+                {
+                  "id": "Xiphoid_Process",
+                  "file": "models/Canine/Ribs/Xiphoid_Process.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Skull",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Mandible",
+                  "file": "models/Canine/Skull/Mandible.glb"
+                },
+                {
+                  "id": "Skull",
+                  "file": "models/Canine/Skull/Skull.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Spine",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Anticlinical_Vertebra",
+                  "file": "models/Canine/Spine/Anticlinical_Vertebra.glb"
+                },
+                {
+                  "id": "Lumbar_Vertebrae",
+                  "file": "models/Canine/Spine/Lumbar_Vertebrae.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae",
+                  "file": "models/Canine/Spine/Thoracic_Vertebrae.glb"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Equine",
+      "regions": [
+        {
+          "id": "Cartilage",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Ears",
+                  "file": "models/Equine/Cartilage/Ears.glb"
+                },
+                {
+                  "id": "Laryngeal_Cartilages_Arytenoids",
+                  "file": "models/Equine/Cartilage/Laryngeal_Cartilages_Arytenoids.glb"
+                },
+                {
+                  "id": "Laryngeal_Cartilages_Circoid",
+                  "file": "models/Equine/Cartilage/Laryngeal_Cartilages_Circoid.glb"
+                },
+                {
+                  "id": "Laryngeal_Cartilages_Epiglottis",
+                  "file": "models/Equine/Cartilage/Laryngeal_Cartilages_Epiglottis.glb"
+                },
+                {
+                  "id": "Laryngeal_Cartilages_Thyroid",
+                  "file": "models/Equine/Cartilage/Laryngeal_Cartilages_Thyroid.glb"
+                },
+                {
+                  "id": "Nares",
+                  "file": "models/Equine/Cartilage/Nares.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Cavities",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Dorsal_Nasal_Concha",
+                  "file": "models/Equine/Cavities/Dorsal_Nasal_Concha.glb"
+                },
+                {
+                  "id": "Ventral_Nasal_Concha",
+                  "file": "models/Equine/Cavities/Ventral_Nasal_Concha.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Legs",
+          "groups": [
+            {
+              "id": "Left_Back",
+              "pieces": [
+                {
+                  "id": "Calcaneus",
+                  "file": "models/Equine/Legs/Left_Back/Calcaneus.glb"
+                },
+                {
+                  "id": "Cannon",
+                  "file": "models/Equine/Legs/Left_Back/Cannon.glb"
+                },
+                {
+                  "id": "Central_Tarsal",
+                  "file": "models/Equine/Legs/Left_Back/Central_Tarsal.glb"
+                },
+                {
+                  "id": "Coffin",
+                  "file": "models/Equine/Legs/Left_Back/Coffin.glb"
+                },
+                {
+                  "id": "Femur",
+                  "file": "models/Equine/Legs/Left_Back/Femur.glb"
+                },
+                {
+                  "id": "Fibula",
+                  "file": "models/Equine/Legs/Left_Back/Fibula.glb"
+                },
+                {
+                  "id": "Fourth_Tarsal",
+                  "file": "models/Equine/Legs/Left_Back/Fourth_Tarsal.glb"
+                },
+                {
+                  "id": "Long_Pastern",
+                  "file": "models/Equine/Legs/Left_Back/Long_Pastern.glb"
+                },
+                {
+                  "id": "Navicular",
+                  "file": "models/Equine/Legs/Left_Back/Navicular.glb"
+                },
+                {
+                  "id": "Patella",
+                  "file": "models/Equine/Legs/Left_Back/Patella.glb"
+                },
+                {
+                  "id": "Sesamoids",
+                  "file": "models/Equine/Legs/Left_Back/Sesamoids.glb"
+                },
+                {
+                  "id": "Short_Pastern",
+                  "file": "models/Equine/Legs/Left_Back/Short_Pastern.glb"
+                },
+                {
+                  "id": "Splint_Fourth_Metatarsal",
+                  "file": "models/Equine/Legs/Left_Back/Splint_Fourth_Metatarsal.glb"
+                },
+                {
+                  "id": "Splint_Second_Metatarsal",
+                  "file": "models/Equine/Legs/Left_Back/Splint_Second_Metatarsal.glb"
+                },
+                {
+                  "id": "Talus",
+                  "file": "models/Equine/Legs/Left_Back/Talus.glb"
+                },
+                {
+                  "id": "Third_Tarsal",
+                  "file": "models/Equine/Legs/Left_Back/Third_Tarsal.glb"
+                },
+                {
+                  "id": "Tibia",
+                  "file": "models/Equine/Legs/Left_Back/Tibia.glb"
+                }
+              ]
+            },
+            {
+              "id": "Left_Front",
+              "pieces": [
+                {
+                  "id": "Cannon",
+                  "file": "models/Equine/Legs/Left_Front/Cannon.glb"
+                },
+                {
+                  "id": "Coffin",
+                  "file": "models/Equine/Legs/Left_Front/Coffin.glb"
+                },
+                {
+                  "id": "Fourth_Carpal",
+                  "file": "models/Equine/Legs/Left_Front/Fourth_Carpal.glb"
+                },
+                {
+                  "id": "Humerus",
+                  "file": "models/Equine/Legs/Left_Front/Humerus.glb"
+                },
+                {
+                  "id": "Intermediate_Carpal",
+                  "file": "models/Equine/Legs/Left_Front/Intermediate_Carpal.glb"
+                },
+                {
+                  "id": "Long_Pastern",
+                  "file": "models/Equine/Legs/Left_Front/Long_Pastern.glb"
+                },
+                {
+                  "id": "Navicular",
+                  "file": "models/Equine/Legs/Left_Front/Navicular.glb"
+                },
+                {
+                  "id": "Radial_Carpal",
+                  "file": "models/Equine/Legs/Left_Front/Radial_Carpal.glb"
+                },
+                {
+                  "id": "Radius",
+                  "file": "models/Equine/Legs/Left_Front/Radius.glb"
+                },
+                {
+                  "id": "Scapula",
+                  "file": "models/Equine/Legs/Left_Front/Scapula.glb"
+                },
+                {
+                  "id": "Second_Carpal",
+                  "file": "models/Equine/Legs/Left_Front/Second_Carpal.glb"
+                },
+                {
+                  "id": "Sesamoids",
+                  "file": "models/Equine/Legs/Left_Front/Sesamoids.glb"
+                },
+                {
+                  "id": "Short_Pastern",
+                  "file": "models/Equine/Legs/Left_Front/Short_Pastern.glb"
+                },
+                {
+                  "id": "Splints",
+                  "file": "models/Equine/Legs/Left_Front/Splints.glb"
+                },
+                {
+                  "id": "Third_Carpal",
+                  "file": "models/Equine/Legs/Left_Front/Third_Carpal.glb"
+                },
+                {
+                  "id": "Ulnar_Accessory_Carpal",
+                  "file": "models/Equine/Legs/Left_Front/Ulnar_Accessory_Carpal.glb"
+                }
+              ]
+            },
+            {
+              "id": "Right_Back",
+              "pieces": [
+                {
+                  "id": "Calcaneus",
+                  "file": "models/Equine/Legs/Right_Back/Calcaneus.glb"
+                },
+                {
+                  "id": "Cannon",
+                  "file": "models/Equine/Legs/Right_Back/Cannon.glb"
+                },
+                {
+                  "id": "Central_Tarsal",
+                  "file": "models/Equine/Legs/Right_Back/Central_Tarsal.glb"
+                },
+                {
+                  "id": "Coffin",
+                  "file": "models/Equine/Legs/Right_Back/Coffin.glb"
+                },
+                {
+                  "id": "Femur",
+                  "file": "models/Equine/Legs/Right_Back/Femur.glb"
+                },
+                {
+                  "id": "Fibula",
+                  "file": "models/Equine/Legs/Right_Back/Fibula.glb"
+                },
+                {
+                  "id": "Fourth_Tarsal",
+                  "file": "models/Equine/Legs/Right_Back/Fourth_Tarsal.glb"
+                },
+                {
+                  "id": "Long_Pastern",
+                  "file": "models/Equine/Legs/Right_Back/Long_Pastern.glb"
+                },
+                {
+                  "id": "Navicular",
+                  "file": "models/Equine/Legs/Right_Back/Navicular.glb"
+                },
+                {
+                  "id": "Patella",
+                  "file": "models/Equine/Legs/Right_Back/Patella.glb"
+                },
+                {
+                  "id": "Sesamoids",
+                  "file": "models/Equine/Legs/Right_Back/Sesamoids.glb"
+                },
+                {
+                  "id": "Short_Pastern",
+                  "file": "models/Equine/Legs/Right_Back/Short_Pastern.glb"
+                },
+                {
+                  "id": "Splint_Fourth_Metatarsal",
+                  "file": "models/Equine/Legs/Right_Back/Splint_Fourth_Metatarsal.glb"
+                },
+                {
+                  "id": "Splint_Second_Metatarsal",
+                  "file": "models/Equine/Legs/Right_Back/Splint_Second_Metatarsal.glb"
+                },
+                {
+                  "id": "Talus",
+                  "file": "models/Equine/Legs/Right_Back/Talus.glb"
+                },
+                {
+                  "id": "Third_Tarsal",
+                  "file": "models/Equine/Legs/Right_Back/Third_Tarsal.glb"
+                },
+                {
+                  "id": "Tibia",
+                  "file": "models/Equine/Legs/Right_Back/Tibia.glb"
+                }
+              ]
+            },
+            {
+              "id": "Right_Front",
+              "pieces": [
+                {
+                  "id": "Cannon",
+                  "file": "models/Equine/Legs/Right_Front/Cannon.glb"
+                },
+                {
+                  "id": "Coffin",
+                  "file": "models/Equine/Legs/Right_Front/Coffin.glb"
+                },
+                {
+                  "id": "Fourth_Carpal",
+                  "file": "models/Equine/Legs/Right_Front/Fourth_Carpal.glb"
+                },
+                {
+                  "id": "Humerus",
+                  "file": "models/Equine/Legs/Right_Front/Humerus.glb"
+                },
+                {
+                  "id": "Intermediate_Carpal",
+                  "file": "models/Equine/Legs/Right_Front/Intermediate_Carpal.glb"
+                },
+                {
+                  "id": "Long_Pastern",
+                  "file": "models/Equine/Legs/Right_Front/Long_Pastern.glb"
+                },
+                {
+                  "id": "Navicular",
+                  "file": "models/Equine/Legs/Right_Front/Navicular.glb"
+                },
+                {
+                  "id": "Radial_Carpal",
+                  "file": "models/Equine/Legs/Right_Front/Radial_Carpal.glb"
+                },
+                {
+                  "id": "Radius",
+                  "file": "models/Equine/Legs/Right_Front/Radius.glb"
+                },
+                {
+                  "id": "Scapula",
+                  "file": "models/Equine/Legs/Right_Front/Scapula.glb"
+                },
+                {
+                  "id": "Second_Carpal",
+                  "file": "models/Equine/Legs/Right_Front/Second_Carpal.glb"
+                },
+                {
+                  "id": "Sesamoids",
+                  "file": "models/Equine/Legs/Right_Front/Sesamoids.glb"
+                },
+                {
+                  "id": "Short_Pastern",
+                  "file": "models/Equine/Legs/Right_Front/Short_Pastern.glb"
+                },
+                {
+                  "id": "Splints",
+                  "file": "models/Equine/Legs/Right_Front/Splints.glb"
+                },
+                {
+                  "id": "Third_Carpal",
+                  "file": "models/Equine/Legs/Right_Front/Third_Carpal.glb"
+                },
+                {
+                  "id": "Ulnar_Accessory_Carpal",
+                  "file": "models/Equine/Legs/Right_Front/Ulnar_Accessory_Carpal.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Muscles",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Soft_Palate",
+                  "file": "models/Equine/Muscles/Soft_Palate.glb"
+                },
+                {
+                  "id": "Tongue",
+                  "file": "models/Equine/Muscles/Tongue.glb"
+                }
+              ]
+            },
+            {
+              "id": "Cranial_Muscles",
+              "pieces": [
+                {
+                  "id": "Auricular",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Auricular.glb"
+                },
+                {
+                  "id": "Auricular 2",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Auricular 2.glb"
+                },
+                {
+                  "id": "Buccinator",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Buccinator.glb"
+                },
+                {
+                  "id": "Levator Annuli Oris Fascialis",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Levator Annuli Oris Fascialis.glb"
+                },
+                {
+                  "id": "Levator Labii",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Levator Labii.glb"
+                },
+                {
+                  "id": "Levator Nasolabialis",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Levator Nasolabialis.glb"
+                },
+                {
+                  "id": "Masseter",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Masseter.glb"
+                },
+                {
+                  "id": "Orbicularis",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Orbicularis.glb"
+                },
+                {
+                  "id": "Orbicularis Occuli",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Orbicularis Occuli.glb"
+                },
+                {
+                  "id": "Orbital Muscles",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Orbital Muscles.glb"
+                },
+                {
+                  "id": "Temporal",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Temporal.glb"
+                },
+                {
+                  "id": "Temporal 2",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Temporal 2.glb"
+                },
+                {
+                  "id": "Zygomaticus",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Zygomaticus.glb"
+                },
+                {
+                  "id": "Zygomaticus 2",
+                  "file": "models/Equine/Muscles/Cranial_Muscles/Zygomaticus 2.glb"
+                }
+              ]
+            },
+            {
+              "id": "Leg_Muscles",
+              "pieces": [
+                {
+                  "id": "Bicep_Brachii",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Bicep_Brachii.glb"
+                },
+                {
+                  "id": "Common_Digital_Extensor",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Common_Digital_Extensor.glb"
+                },
+                {
+                  "id": "Deltoid",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Deltoid.glb"
+                },
+                {
+                  "id": "Extensor_Carpi_Radialis",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Extensor_Carpi_Radialis.glb"
+                },
+                {
+                  "id": "Flexor_Carpi_Radialis",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Flexor_Carpi_Radialis.glb"
+                },
+                {
+                  "id": "Flexor_Carpi_Ulnaris",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Flexor_Carpi_Ulnaris.glb"
+                },
+                {
+                  "id": "splenius",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/splenius.glb"
+                },
+                {
+                  "id": "Superficial_Digital_Flexor",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Superficial_Digital_Flexor.glb"
+                },
+                {
+                  "id": "Supraspinatus",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Supraspinatus.glb"
+                },
+                {
+                  "id": "Trapezius",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Trapezius.glb"
+                },
+                {
+                  "id": "Tricep",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Tricep.glb"
+                },
+                {
+                  "id": "Tricep_2",
+                  "file": "models/Equine/Muscles/Leg_Muscles/Right_Front/Tricep_2.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Neck",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Cervical_Vertebrae",
+                  "file": "models/Equine/Neck/Cervical_Vertebrae.glb"
+                },
+                {
+                  "id": "Cervical_Vertebrae1",
+                  "file": "models/Equine/Neck/Cervical_Vertebrae1.glb"
+                },
+                {
+                  "id": "Cervical_Vertebrae2",
+                  "file": "models/Equine/Neck/Cervical_Vertebrae2.glb"
+                },
+                {
+                  "id": "Cervical_Vertebrae3",
+                  "file": "models/Equine/Neck/Cervical_Vertebrae3.glb"
+                },
+                {
+                  "id": "Cervical_Vertebrae4",
+                  "file": "models/Equine/Neck/Cervical_Vertebrae4.glb"
+                },
+                {
+                  "id": "Cervical_Vertebrae5",
+                  "file": "models/Equine/Neck/Cervical_Vertebrae5.glb"
+                },
+                {
+                  "id": "Cervical_Vertebrae6",
+                  "file": "models/Equine/Neck/Cervical_Vertebrae6.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Nervous_System",
+          "groups": [
+            {
+              "id": "Cranial_Nerves",
+              "pieces": [
+                {
+                  "id": "CN I - Olfactory Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN I - Olfactory Nerve.glb"
+                },
+                {
+                  "id": "CN II - Optic Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN II - Optic Nerve.glb"
+                },
+                {
+                  "id": "CN III - Oculomotor Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN III - Oculomotor Nerve.glb"
+                },
+                {
+                  "id": "CN IV - Trochlear Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN IV - Trochlear Nerve.glb"
+                },
+                {
+                  "id": "CN IX - Glossopharyngeal Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN IX - Glossopharyngeal Nerve.glb"
+                },
+                {
+                  "id": "CN V - Trigeminal Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN V - Trigeminal Nerve.glb"
+                },
+                {
+                  "id": "CN VI - Abducens Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN VI - Abducens Nerve.glb"
+                },
+                {
+                  "id": "CN VII - Facial Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN VII - Facial Nerve.glb"
+                },
+                {
+                  "id": "CN VIII - Vestibulocochlear Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN VIII - Vestibulocochlear Nerve.glb"
+                },
+                {
+                  "id": "CN X - Vagus nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN X - Vagus nerve.glb"
+                },
+                {
+                  "id": "CN XI - Accessory Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN XI - Accessory Nerve.glb"
+                },
+                {
+                  "id": "CN XII - Hypoglossal Nerve",
+                  "file": "models/Equine/Nervous_System/Cranial_Nerves/CN XII - Hypoglossal Nerve.glb"
+                }
+              ]
+            },
+            {
+              "id": "Leg_Nerves",
+              "pieces": [
+                {
+                  "id": "Nerves",
+                  "file": "models/Equine/Nervous_System/Leg_Nerves/Right_Front/Nerves.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Organs",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Brain",
+                  "file": "models/Equine/Organs/Brain.glb"
+                },
+                {
+                  "id": "Eyes",
+                  "file": "models/Equine/Organs/Eyes.glb"
+                },
+                {
+                  "id": "Gutteral_Pouches",
+                  "file": "models/Equine/Organs/Gutteral_Pouches.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Pelvis_Tail",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Caudal_Vertebrae",
+                  "file": "models/Equine/Pelvis_Tail/Caudal_Vertebrae.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae1",
+                  "file": "models/Equine/Pelvis_Tail/Caudal_Vertebrae1.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae2",
+                  "file": "models/Equine/Pelvis_Tail/Caudal_Vertebrae2.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae3",
+                  "file": "models/Equine/Pelvis_Tail/Caudal_Vertebrae3.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae4",
+                  "file": "models/Equine/Pelvis_Tail/Caudal_Vertebrae4.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae5",
+                  "file": "models/Equine/Pelvis_Tail/Caudal_Vertebrae5.glb"
+                },
+                {
+                  "id": "Caudal_Vertebrae6",
+                  "file": "models/Equine/Pelvis_Tail/Caudal_Vertebrae6.glb"
+                },
+                {
+                  "id": "Pelvis",
+                  "file": "models/Equine/Pelvis_Tail/Pelvis.glb"
+                },
+                {
+                  "id": "Sacral_Vertebrae",
+                  "file": "models/Equine/Pelvis_Tail/Sacral_Vertebrae.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Ribs",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Rib_Cartilage",
+                  "file": "models/Equine/Ribs/Rib_Cartilage.glb"
+                },
+                {
+                  "id": "Rib_Cartilage1",
+                  "file": "models/Equine/Ribs/Rib_Cartilage1.glb"
+                },
+                {
+                  "id": "Rib_Cartilage2",
+                  "file": "models/Equine/Ribs/Rib_Cartilage2.glb"
+                },
+                {
+                  "id": "Sternum",
+                  "file": "models/Equine/Ribs/Sternum.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Skull",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Cranium",
+                  "file": "models/Equine/Skull/Cranium.glb"
+                },
+                {
+                  "id": "Ethmoid_Turbinates",
+                  "file": "models/Equine/Skull/Ethmoid_Turbinates.glb"
+                },
+                {
+                  "id": "Mandible",
+                  "file": "models/Equine/Skull/Mandible.glb"
+                },
+                {
+                  "id": "Nasal_Septum",
+                  "file": "models/Equine/Skull/Nasal_Septum.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Spine",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Lumbar_Vertebrae",
+                  "file": "models/Equine/Spine/Lumbar_Vertebrae.glb"
+                },
+                {
+                  "id": "Lumbar_Vertebrae1",
+                  "file": "models/Equine/Spine/Lumbar_Vertebrae1.glb"
+                },
+                {
+                  "id": "Lumbar_Vertebrae2",
+                  "file": "models/Equine/Spine/Lumbar_Vertebrae2.glb"
+                },
+                {
+                  "id": "Lumbar_Vertebrae3",
+                  "file": "models/Equine/Spine/Lumbar_Vertebrae3.glb"
+                },
+                {
+                  "id": "Lumbar_Vertebrae4",
+                  "file": "models/Equine/Spine/Lumbar_Vertebrae4.glb"
+                },
+                {
+                  "id": "Lumbar_Vertebrae5",
+                  "file": "models/Equine/Spine/Lumbar_Vertebrae5.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae1",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae1.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae10",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae10.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae11",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae11.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae12",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae12.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae13",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae13.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae14",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae14.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae15",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae15.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae16",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae16.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae17",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae17.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae2",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae2.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae3",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae3.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae4",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae4.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae5",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae5.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae6",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae6.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae7",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae7.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae8",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae8.glb"
+                },
+                {
+                  "id": "Thoracic_Vertebrae9",
+                  "file": "models/Equine/Spine/Thoracic_Vertebrae9.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Teeth",
+          "groups": [
+            {
+              "id": "",
+              "pieces": [
+                {
+                  "id": "Lower_Canine",
+                  "file": "models/Equine/Teeth/Lower_Canine.glb"
+                },
+                {
+                  "id": "Lower_Canine1",
+                  "file": "models/Equine/Teeth/Lower_Canine1.glb"
+                },
+                {
+                  "id": "Lower_Incisor",
+                  "file": "models/Equine/Teeth/Lower_Incisor.glb"
+                },
+                {
+                  "id": "Lower_Incisor1",
+                  "file": "models/Equine/Teeth/Lower_Incisor1.glb"
+                },
+                {
+                  "id": "Lower_Incisor2",
+                  "file": "models/Equine/Teeth/Lower_Incisor2.glb"
+                },
+                {
+                  "id": "Lower_Incisor3",
+                  "file": "models/Equine/Teeth/Lower_Incisor3.glb"
+                },
+                {
+                  "id": "Lower_Incisor4",
+                  "file": "models/Equine/Teeth/Lower_Incisor4.glb"
+                },
+                {
+                  "id": "Lower_Incisor5",
+                  "file": "models/Equine/Teeth/Lower_Incisor5.glb"
+                },
+                {
+                  "id": "Mandibular_Molar",
+                  "file": "models/Equine/Teeth/Mandibular_Molar.glb"
+                },
+                {
+                  "id": "Mandibular_Molar1",
+                  "file": "models/Equine/Teeth/Mandibular_Molar1.glb"
+                },
+                {
+                  "id": "Mandibular_Molar2",
+                  "file": "models/Equine/Teeth/Mandibular_Molar2.glb"
+                },
+                {
+                  "id": "Mandibular_Molar3",
+                  "file": "models/Equine/Teeth/Mandibular_Molar3.glb"
+                },
+                {
+                  "id": "Mandibular_Molar4",
+                  "file": "models/Equine/Teeth/Mandibular_Molar4.glb"
+                },
+                {
+                  "id": "Mandibular_Molar5",
+                  "file": "models/Equine/Teeth/Mandibular_Molar5.glb"
+                },
+                {
+                  "id": "Mandibular_Premolar",
+                  "file": "models/Equine/Teeth/Mandibular_Premolar.glb"
+                },
+                {
+                  "id": "Mandibular_Premolar1",
+                  "file": "models/Equine/Teeth/Mandibular_Premolar1.glb"
+                },
+                {
+                  "id": "Mandibular_Premolar2",
+                  "file": "models/Equine/Teeth/Mandibular_Premolar2.glb"
+                },
+                {
+                  "id": "Mandibular_Premolar3",
+                  "file": "models/Equine/Teeth/Mandibular_Premolar3.glb"
+                },
+                {
+                  "id": "Mandibular_Premolar4",
+                  "file": "models/Equine/Teeth/Mandibular_Premolar4.glb"
+                },
+                {
+                  "id": "Mandibular_Premolar5",
+                  "file": "models/Equine/Teeth/Mandibular_Premolar5.glb"
+                },
+                {
+                  "id": "Maxilary_Molar",
+                  "file": "models/Equine/Teeth/Maxilary_Molar.glb"
+                },
+                {
+                  "id": "Maxilary_Molar1",
+                  "file": "models/Equine/Teeth/Maxilary_Molar1.glb"
+                },
+                {
+                  "id": "Maxilary_Molar2",
+                  "file": "models/Equine/Teeth/Maxilary_Molar2.glb"
+                },
+                {
+                  "id": "Maxilary_Molar3",
+                  "file": "models/Equine/Teeth/Maxilary_Molar3.glb"
+                },
+                {
+                  "id": "Maxilary_Molar4",
+                  "file": "models/Equine/Teeth/Maxilary_Molar4.glb"
+                },
+                {
+                  "id": "Maxilary_Molar5",
+                  "file": "models/Equine/Teeth/Maxilary_Molar5.glb"
+                },
+                {
+                  "id": "Maxilary_Premolar",
+                  "file": "models/Equine/Teeth/Maxilary_Premolar.glb"
+                },
+                {
+                  "id": "Maxilary_Premolar1",
+                  "file": "models/Equine/Teeth/Maxilary_Premolar1.glb"
+                },
+                {
+                  "id": "Maxilary_Premolar2",
+                  "file": "models/Equine/Teeth/Maxilary_Premolar2.glb"
+                },
+                {
+                  "id": "Maxilary_Premolar3",
+                  "file": "models/Equine/Teeth/Maxilary_Premolar3.glb"
+                },
+                {
+                  "id": "Maxilary_Premolar4",
+                  "file": "models/Equine/Teeth/Maxilary_Premolar4.glb"
+                },
+                {
+                  "id": "Maxilary_Premolar5",
+                  "file": "models/Equine/Teeth/Maxilary_Premolar5.glb"
+                },
+                {
+                  "id": "Upper_Canine",
+                  "file": "models/Equine/Teeth/Upper_Canine.glb"
+                },
+                {
+                  "id": "Upper_Canine1",
+                  "file": "models/Equine/Teeth/Upper_Canine1.glb"
+                },
+                {
+                  "id": "Upper_Incisor",
+                  "file": "models/Equine/Teeth/Upper_Incisor.glb"
+                },
+                {
+                  "id": "Upper_Incisor1",
+                  "file": "models/Equine/Teeth/Upper_Incisor1.glb"
+                },
+                {
+                  "id": "Upper_Incisor2",
+                  "file": "models/Equine/Teeth/Upper_Incisor2.glb"
+                },
+                {
+                  "id": "Upper_Incisor3",
+                  "file": "models/Equine/Teeth/Upper_Incisor3.glb"
+                },
+                {
+                  "id": "Upper_Incisor4",
+                  "file": "models/Equine/Teeth/Upper_Incisor4.glb"
+                },
+                {
+                  "id": "Upper_Incisor5",
+                  "file": "models/Equine/Teeth/Upper_Incisor5.glb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Vascular_System",
+          "groups": [
+            {
+              "id": "Legs",
+              "pieces": [
+                {
+                  "id": "Arteries",
+                  "file": "models/Equine/Vascular_System/Legs/Right_Front/Arteries.glb"
+                },
+                {
+                  "id": "Veins",
+                  "file": "models/Equine/Vascular_System/Legs/Right_Front/Veins.glb"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-30T23:08:11.233Z"
+}
